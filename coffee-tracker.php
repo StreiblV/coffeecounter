@@ -68,22 +68,52 @@ if ($userId) {
 
 // Handle adding or removing coffee cups
 if ($userId && $_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['add'])) {
-        $stmt = $pdo->prepare("INSERT INTO coffee_entries (user_id) VALUES (:user_id)");
-        $stmt->execute([':user_id' => $userId]);
-    } elseif (isset($_POST['remove'])) {
-        $stmt = $pdo->prepare("
-            DELETE FROM coffee_entries 
-            WHERE id = (
-                SELECT id FROM (
-                    SELECT id FROM coffee_entries 
-                    WHERE user_id = :user_id 
-                    ORDER BY timestamp DESC LIMIT 1
-                ) as subquery
-            )
-        ");
-        $stmt->execute([':user_id' => $userId]);
+    // Check for add type
+    if (isset($_POST['addCoffee'])) {
+        $addtype = 'coffee';
+    } elseif (isset($_POST['addWildkraut'])) {
+        $addtype = 'wildkraut';
+    } elseif (isset($_POST['addEnergyDrink'])) {
+        $addtype = 'energydrink';
     }
+
+    // Add entry if a type is set
+    if (isset($addtype)) {
+        $stmt = $pdo->prepare("INSERT INTO coffee_entries (user_id, type) VALUES (:user_id, :addtype)");
+        $stmt->execute([
+            ':user_id' => $userId,
+            ':addtype' => $addtype
+        ]);
+    }
+
+    // Check for remove type
+    if (isset($_POST['removeCoffee'])) {
+        $removetype = 'coffee';
+    } elseif (isset($_POST['removeWildkraut'])) {
+        $removetype = 'wildkraut';
+    } elseif (isset($_POST['removeEnergyDrink'])) {
+        $removetype = 'energydrink';
+    }
+
+    // Handle remove operation if a type is set
+    if (isset($removetype)) {
+		$stmt = $pdo->prepare("
+			DELETE coffee_entries 
+			FROM coffee_entries
+			INNER JOIN (
+				SELECT id 
+				FROM coffee_entries 
+				WHERE user_id = :user_id AND type = :removetype
+				ORDER BY timestamp DESC 
+				LIMIT 1
+			) as target
+			ON coffee_entries.id = target.id
+		");
+		$stmt->execute([
+			':user_id' => $userId,
+			':removetype' => $removetype
+		]);
+	}
     
     // Export user's coffee data
     if ($userId && isset($_POST['export'])) {
@@ -135,7 +165,7 @@ $leaderboard = $stmt->fetchAll();
     <title>Coffee Counter</title>
     <script>
         function confirmRemoval(event) {
-            if (!confirm("Are you sure you want to remove a coffee cup?")) {
+            if (!confirm("Are you sure you want to remove it?")) {
                 event.preventDefault();
             }
         }
@@ -145,32 +175,36 @@ $leaderboard = $stmt->fetchAll();
     <h1>Welcome, <?php echo htmlspecialchars($username); ?>!</h1>
     <div class="todays-count-box">
         <p>
-            Today your coffee consumption adds up to <span><?php echo $todaysCount; ?></span> cup<?php echo $todaysCount !== 1 ? 's' : ''; ?>.
+            Today your caffeine consumption adds up to <span><?php echo $todaysCount; ?></span> Energy Level<?php echo $todaysCount !== 1 ? 's' : ''; ?>.
         </p>
     </div>
     <form method="POST">
-        <button id="btn-primary" type="submit" name="add">Add Cup</button>
+		<button id="btn-primary" type="submit" name="addCoffee">Add Cup</button>
+		<button id="btn-primary" type="submit" name="addWildkraut">Add Wildkraut</button>
+        <button id="btn-primary" type="submit" name="addEnergyDrink">Add Energy Drink</button>
     </form>
     <?php include 'hourly-consume-diagram.php'; ?>
     <hr>
-    <h2>Your Daily Coffee History</h2>
+    <h2>Your Daily Caffeine History</h2>
     <ul>
         <?php foreach ($dailyHistory as $entry): ?>
             <li>
-                <strong><?php echo htmlspecialchars($entry['date']); ?></strong>: <?php echo $entry['count']; ?> cups
+                <strong><?php echo htmlspecialchars($entry['date']); ?></strong>: <?php echo $entry['count']; ?> Energy Level<?php echo $entry['count'] !== 1 ? 's' : ''; ?>
             </li>
         <?php endforeach; ?>
     </ul>
     <form method="POST">
-        <button id="btn-secondary" type="submit" name="remove" onclick="confirmRemoval(event)">Remove Cup</button>
+        <button id="btn-secondary" type="submit" name="removeCoffee" onclick="confirmRemoval(event)">Remove Cup</button>
+		<button id="btn-secondary" type="submit" name="removeWildkraut" onclick="confirmRemoval(event)">Remove Wildkraut</button>
+		<button id="btn-secondary" type="submit" name="removeEnergyDrink" onclick="confirmRemoval(event)">Remove Energy Drink</button>
         <button id="btn-secondary" type="submit" name="export">Export Your Data</button>
     </form>
     <hr>
-    <h2>Leaderboard</h2>
+    <h2>Monthly Leaderboard</h2>
     <ul>
         <?php foreach ($leaderboard as $entry): ?>
             <li>
-                <strong><?php echo htmlspecialchars($entry['username']); ?></strong>: <?php echo $entry['count']; ?> cups
+                <strong><?php echo htmlspecialchars($entry['username']); ?></strong>: <?php echo $entry['count']; ?> Energy Level<?php echo $entry['count'] !== 1 ? 's' : ''; ?>
             </li>
         <?php endforeach; ?>
     </ul>
