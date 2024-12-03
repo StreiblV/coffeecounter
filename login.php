@@ -41,16 +41,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php if (!empty($error)): ?>
             <p class="error"><?php echo htmlspecialchars($error); ?></p>
         <?php endif; ?>
-        <form method="POST">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-            <br>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-            <br><br>
-            
-            <button id="btn-primary" type="submit">Login</button>
-        </form>
+        <form method="POST" class="form-grid">
+			<label for="username">Username:</label>
+			<input type="text" id="username" name="username" required>
+			
+			<label for="password">Password:</label>
+			<input type="password" id="password" name="password" required>
+			
+			<div></div> <!-- Empty div for grid alignment -->
+			<button id="btn-primary" type="submit">Login</button>
+		</form>
         <p>No account yet? <a href="register.php">Register here</a>.</p>
     </main>
 </body>
