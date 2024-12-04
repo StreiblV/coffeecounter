@@ -31,7 +31,7 @@ if ($userId) {
 }
 ?>
 
-<h1>Your Coffee Consumption Today</h1>
+<h1>Your Caffeine Consumption Today</h1>
 <div class="chart-container">
     <canvas id="dailyChart"></canvas>
 </div>
@@ -49,7 +49,7 @@ if ($userId) {
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'Coffee Cups Added',
+                    label: 'Energy Levels Added',
                     data: data,
                     borderColor: '#795548',
                     backgroundColor: 'rgba(121, 85, 72, 0.5)',
@@ -78,7 +78,7 @@ if ($userId) {
                     y: {
                         title: {
                             display: true,
-                            text: 'Number of Cups'
+                            text: 'Number of Boosts'
                         },
                         beginAtZero: true
                     }

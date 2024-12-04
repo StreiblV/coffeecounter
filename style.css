@@ -105,6 +105,46 @@ main p {
     margin-top: 20px;
 }
 
+/* Form grid styling */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr; /* Labels take 1 fraction, inputs 2 fractions */
+    gap: 10px 20px; /* Row gap of 10px, column gap of 20px */
+    max-width: 400px; /* Limit form width */
+    margin: 0 auto; /* Center form on the page */
+    align-items: center; /* Align items vertically */
+}
+
+.form-grid label {
+    font-weight: bold;
+    color: #4e342e; /* Coffee brown */
+}
+
+.form-grid input {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #d7ccc8; /* Light mocha */
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box; /* Ensure padding doesn't overflow the grid cell */
+}
+
+.form-grid button {
+    grid-column: span 2; /* Span the button across both columns */
+    padding: 12px;
+    font-size: 1rem;
+    background-color: #795548; /* Coffee brown */
+    color: #fff; /* White text */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form-grid button:hover {
+    background-color: #5d4037; /* Darker coffee brown */
+}
+
 /* Coffee-colored box for today's count */
 .todays-count-box {
     background-color: #D7CCC8; /* Light coffee color */

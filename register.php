@@ -32,6 +32,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register for Coffee Counter</title>
     <link rel="stylesheet" href="style.css">
+	
+	<link rel="apple-touch-icon" sizes="180x180" href="/favicon_io/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon_io/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon_io/favicon-16x16.png">
+	<link rel="manifest" href="/favicon_io/site.webmanifest">
 </head>
 <body>
     <main>
@@ -39,15 +44,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php if (!empty($error)): ?>
             <p class="error"><?php echo htmlspecialchars($error); ?></p>
         <?php endif; ?>
-        <form method="POST">
-            <label for="username">Username:</label>
+		<form method="POST" class="form-grid">
+			<label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
-            <br>
-            <label for="password">Password:</label>
+			
+			<label for="password">Password:</label>
             <input type="password" id="password" name="password" required>
-            <br><br>
-            <button id="btn-primary" type="submit">Register</button>
-        </form>
+			
+			<div></div> <!-- Empty div for grid alignment -->
+			<button id="btn-primary" type="submit">Login</button>
+		</form>
         <p>Already have an account? <a href="login.php">Login here</a>.</p>
     </main>
 </body>
