@@ -6,9 +6,8 @@ require_once 'db.php';
 
 // Redirect to login if user is not authenticated
 if (!isset($_SESSION['username'])) {
-    //header("Location: index.php?action=login");
-    //exit;
-    echo $_SESSION['username'];
+    header("Location: index.php?action=login");
+    exit;
 }
 
 // Fetch user-specific data
