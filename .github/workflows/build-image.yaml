@@ -15,27 +15,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-
-    - name: Generate credentials file
-      env:
-        DB_HOST: ${{ secrets.DB_DEV_HOST }}
-        DB_NAME: ${{ secrets.DB_DEV_NAME }}
-        DB_USER: ${{ secrets.DB_DEV_USER }}
-        DB_PASSWORD: ${{ secrets.DB_DEV_PASSWORD }}        
-      run: |
-        touch credentials.php
-        cat <<EOF > credentials.php
-          <?php
-
-          \$host = "${DB_HOST}";
-          \$dbname = "${DB_NAME}";
-          \$user = "${DB_USER}";
-          \$password = "${DB_PASSWORD}";
-
-          ?>
-        EOF
-      shell: bash
+    - name: Checkout
+      uses: actions/checkout@v4
 
     - name: Login to GitHub Container Registry
       uses: docker/login-action@v3
@@ -50,10 +31,30 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
+    - name: Generate credentials file
+      env:
+        DB_HOST: ${{ secrets.DB_DEV_HOST }}
+        DB_NAME: ${{ secrets.DB_DEV_NAME }}
+        DB_USER: ${{ secrets.DB_DEV_USER }}
+        DB_PASSWORD: ${{ secrets.DB_DEV_PASSWORD }}
+      run: |
+        echo "<?php" > credentials.php
+        echo "\$host = \"${DB_HOST}\";" >> credentials.php
+        echo "\$dbname = \"${DB_NAME}\";" >> credentials.php
+        echo "\$user = \"${DB_USER}\";" >> credentials.php
+        echo "\$password = \"${DB_PASSWORD}\";" >> credentials.php
+        echo "?>" >> credentials.php
+        
+        ls -lah
+        cat credentials.php
+      shell: bash
+
     - name: Build and push
       uses: docker/build-push-action@v6
       if: github.ref == 'refs/heads/dev'
       with:
+        context: .
+        file: ./Dockerfile
         push: true
         tags: harbor.rynkix.com/coffee-tracker/website:dev
 
@@ -61,5 +62,7 @@ jobs:
       uses: docker/build-push-action@v6
       if: github.ref == 'refs/heads/main'
       with:
+        context: .
+        file: ./Dockerfile
         push: true
         tags: harbor.rynkix.com/coffee-tracker/website:latest
