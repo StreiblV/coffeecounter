@@ -155,14 +155,7 @@ $leaderboard = $stmt->fetchAll();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-	<link rel="apple-touch-icon" sizes="180x180" href="/favicon_io/apple-touch-icon.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="/favicon_io/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="/favicon_io/favicon-16x16.png">
-	<link rel="manifest" href="/favicon_io/site.webmanifest">
-    <title>Coffee Counter</title>
+    <?php include 'header.php'; ?>
     <script>
         function confirmRemoval(event) {
             if (!confirm("Are you sure you want to remove it?")) {
@@ -172,6 +165,7 @@ $leaderboard = $stmt->fetchAll();
     </script>
 </head>
 <body>
+	<?php include 'navbar.php'; ?>
     <h1>Welcome, <?php echo htmlspecialchars($username); ?>!</h1>
     <div class="todays-count-box">
         <p>
@@ -183,33 +177,11 @@ $leaderboard = $stmt->fetchAll();
 		<button id="btn-primary" type="submit" name="addWildkraut">Add Wildkraut</button>
         <button id="btn-primary" type="submit" name="addEnergyDrink">Add Energy Drink</button>
     </form>
-    <?php include 'hourly-consume-diagram.php'; ?>
-    <hr>
-    <h2>Your Daily Caffeine History</h2>
-    <ul>
-        <?php foreach ($dailyHistory as $entry): ?>
-            <li>
-                <strong><?php echo htmlspecialchars($entry['date']); ?></strong>: <?php echo $entry['count']; ?> Energy Level<?php echo $entry['count'] !== 1 ? 's' : ''; ?>
-            </li>
-        <?php endforeach; ?>
-    </ul>
     <form method="POST">
         <button id="btn-secondary" type="submit" name="removeCoffee" onclick="confirmRemoval(event)">Remove Cup</button>
 		<button id="btn-secondary" type="submit" name="removeWildkraut" onclick="confirmRemoval(event)">Remove Wildkraut</button>
 		<button id="btn-secondary" type="submit" name="removeEnergyDrink" onclick="confirmRemoval(event)">Remove Energy Drink</button>
-        <button id="btn-secondary" type="submit" name="export">Export Your Data</button>
     </form>
     <hr>
-    <h2>Monthly Leaderboard</h2>
-    <ul>
-        <?php foreach ($leaderboard as $entry): ?>
-            <li>
-                <strong><?php echo htmlspecialchars($entry['username']); ?></strong>: <?php echo $entry['count']; ?> Energy Level<?php echo $entry['count'] !== 1 ? 's' : ''; ?>
-            </li>
-        <?php endforeach; ?>
-    </ul>
-    <form method="POST" action="logout.php">
-        <button id="btn-secondary" type="submit">Logout</button>
-    </form>
 </body>
 </html>

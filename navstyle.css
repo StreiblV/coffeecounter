@@ -1,0 +1,145 @@
+.navbar {
+    background-color: #795548; /* Coffee brown */
+    color: #fff; /* White text */
+	justify-content: space-between;
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    width: 100%; /* Full width */
+    position: fixed; /* Stick to the top */
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    height: 60px; /* Uniform height for all elements */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+.navbar-menu {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    width: 80%; /* Make the menu span the full navbar width */
+    height: 100%; /* Ensure full height for items */
+}
+
+.navbar-menu li {
+    flex-grow: 1; /* Make all buttons take up equal space */
+    text-align: center; /* Center the text inside */
+	background: #fffff;
+	padding: 0;
+	border: 0;
+	box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-menu a {
+    display: block; /* Ensure the full button area is clickable */
+    width: 100%; /* Take up full width of the parent */
+    height: 100%; /* Take up the full height of the navbar */
+    line-height: 60px; /* Vertically center the text */
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff; /* White text */
+    text-decoration: none;
+    background-color: #795548; /* Default background color */
+    border-radius: 0; /* Remove rounded corners */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.navbar-menu a:hover {
+    background-color: #5d4037; /* Darker coffee brown */
+    color: #ffebee; /* Light mocha */
+    transform: scale(1); /* Slight zoom effect */
+}
+
+/* Responsive Hamburger Menu */
+.menu-icon {
+    display: none; /* Hidden on large screens */
+    font-size: 2rem;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* Responsive Design for Mobile View */
+@media (max-width: 768px) {
+    .menu-icon {
+        display: block; /* Show hamburger menu */
+        font-size: 2rem;
+        color: #fff;
+        cursor: pointer;
+        margin-right: 3rem; /* Ensure proper spacing */
+    }
+
+    .navbar-menu {
+        position: absolute;
+        top: 60px; /* Below the navbar */
+        right: 0;
+        background-color: #795548; /* Same as navbar background */
+        flex-direction: column; /* Stack menu items vertically */
+        width: 100%; /* Full width */
+        transform: translateY(-100%); /* Initially hidden */
+        visibility: hidden;
+        opacity: 0;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        gap: 0; /* Remove extra gaps */
+    }
+
+	.navbar-menu.active {
+    position: fixed; /* Fix the menu to the viewport */
+    top: 0; /* Align it to the top of the screen */
+    left: 0; /* Align it to the left of the screen */
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: #795548; /* Same background color as the navbar */
+    transform: translateY(0); /* Slide down */
+    visibility: visible; /* Ensure it's visible */
+    opacity: 1; /* Full opacity */
+    display: flex; /* Keep the flex layout */
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center align menu items */
+    justify-content: center; /* Center menu items vertically */
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    z-index: 9999; /* Ensure it appears above other elements */
+}
+
+
+    .navbar-menu li {
+        width: 100%; /* Ensure each item spans full width */
+        text-align: center; /* Center-align text */
+        background: transparent; /* Remove background */
+        padding: 0; /* Remove unnecessary padding */
+        margin: 0; /* Remove unnecessary margin */
+		border-bottom: 1px solid #5d4037; /* Divider for better spacing */
+    }
+
+    .navbar-menu a {
+        padding: 15px 0; /* Add proper padding for mobile view */
+        font-size: 1.2rem; /* Adjust font size for readability */
+        color: #fff; /* Ensure text is visible */
+        background-color: transparent; /* No extra background */
+        text-decoration: none;
+        width: 100%; /* Full width clickable */
+		height: 0%;
+		line-height: 0%;
+    }
+
+    .navbar-menu a:hover {
+        background-color: #5d4037; /* Add hover effect */
+        color: #ffebee; /* Light mocha for contrast */
+    }
+}
+
+/* Main Content */
+main {
+    margin-top: 80px; /* Avoid overlap with the fixed navbar */
+    text-align: center;
+    padding: 20px;
+}
