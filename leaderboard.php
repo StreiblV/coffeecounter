@@ -58,67 +58,7 @@ $totalLeaderboard = $stmt->fetchAll();
 <html lang="en">
 <head>
     <?php include 'header.php'; ?>
-    <style>
-        /* Slider Container */
-        .slider-container {
-            position: relative;
-            overflow: hidden;
-            width: 100%;
-            max-width: 600px;
-            margin: auto;
-        }
-
-        /* Slider */
-        .slider {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-        }
-
-        /* Slide */
-        .slide {
-            min-width: 100%;
-            box-sizing: border-box;
-            text-align: center;
-            padding: 20px;
-            background: #f5f3f0;
-            border: 1px solid #d7ccc8;
-            border-radius: 10px;
-        }
-
-        /* Leaderboard List */
-        .leaderboard-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .leaderboard-list li {
-            margin: 10px 0;
-            font-size: 1.2rem;
-        }
-
-        /* Navigation Buttons */
-        .slider-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: #795548;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 5px;
-            z-index: 10;
-        }
-
-        .slider-btn.left {
-            left: 10px;
-        }
-
-        .slider-btn.right {
-            right: 10px;
-        }
-    </style>
+	<?php include 'slidestyle.css'; ?>
 </head>
 <body>
     <?php include 'navbar.php'; ?>
