@@ -66,3 +66,19 @@ jobs:
         file: ./Dockerfile
         push: true
         tags: harbor.rynkix.com/coffee-tracker/website:latest
+
+    - name: Setup kubectl
+      uses: azure/setup-kubectl@v4
+
+    - name: Create/Verify `.kube` directory
+      run: mkdir -p ~/.kube/
+
+    - name: Create kubectl config
+      run: |
+        cat << EOF >> ~/.kube/config
+        ${{ secrets.KUBE_CONFIG }}
+        EOF
+
+    - name: Echo deployments
+      run: |
+        kubectl rollout restart deployment website
