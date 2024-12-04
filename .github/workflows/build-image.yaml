@@ -1,0 +1,68 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches:
+      - "main"
+      - "dev"
+  pull_request:
+    branches: 
+      - "dev"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: harbor.rynkix.com
+        username: ${{ secrets.HARBOR_ROBOT_USERNAME }}
+        password: ${{ secrets.HARBOR_ROBOT_PASSWORD }}
+
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v3
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Generate credentials file
+      env:
+        DB_HOST: ${{ secrets.DB_DEV_HOST }}
+        DB_NAME: ${{ secrets.DB_DEV_NAME }}
+        DB_USER: ${{ secrets.DB_DEV_USER }}
+        DB_PASSWORD: ${{ secrets.DB_DEV_PASSWORD }}
+      run: |
+        echo "<?php" > credentials.php
+        echo "\$host = \"${DB_HOST}\";" >> credentials.php
+        echo "\$dbname = \"${DB_NAME}\";" >> credentials.php
+        echo "\$user = \"${DB_USER}\";" >> credentials.php
+        echo "\$password = \"${DB_PASSWORD}\";" >> credentials.php
+        echo "?>" >> credentials.php
+        
+        ls -lah
+        cat credentials.php
+      shell: bash
+
+    - name: Build and push
+      uses: docker/build-push-action@v6
+      if: github.ref == 'refs/heads/dev'
+      with:
+        context: .
+        file: ./Dockerfile
+        push: true
+        tags: harbor.rynkix.com/coffee-tracker/website:dev
+
+    - name: Build and push
+      uses: docker/build-push-action@v6
+      if: github.ref == 'refs/heads/main'
+      with:
+        context: .
+        file: ./Dockerfile
+        push: true
+        tags: harbor.rynkix.com/coffee-tracker/website:latest
