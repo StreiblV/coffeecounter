@@ -1,6 +1,6 @@
 /* General reset */
 body {
-    margin: 0;
+    margin: 3rem 0rem;
     padding: 0;
     font-family: 'Arial', sans-serif;
     line-height: 1.6;
@@ -185,7 +185,6 @@ main p {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
     .chart-container {
         width: 90%; /* Take more width on smaller screens */
