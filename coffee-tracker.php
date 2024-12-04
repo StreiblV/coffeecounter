@@ -190,17 +190,17 @@ $leaderboard = $stmt->fetchAll();
             Today your caffeine consumption adds up to <span><?php echo $todaysCount; ?></span> Energy Level<?php echo $todaysCount !== 1 ? 's' : ''; ?>.
         </p>
     </div>
-    <div class="ai-box <?php if (!isset($OPENAI_API_KEY)) { echo "hidden"; } ?>">
-        <h2>✨ AI Overview ✨</h2>
-        <p id="ai-overview">
-            <button id="btn-primary" onclick=genAiSummary(event)>Generate a customized™ AI summary</button>
-        </p>
-    </div>
     <form method="POST">
 		<button id="btn-primary" type="submit" name="addCoffee">Add Cup</button>
 		<button id="btn-primary" type="submit" name="addWildkraut">Add Wildkraut</button>
         <button id="btn-primary" type="submit" name="addEnergyDrink">Add Energy Drink</button>
     </form>
+	<div class="ai-box <?php if (!isset($OPENAI_API_KEY)) { echo "hidden"; } ?>">
+        <h2>✨ AI Overview ✨</h2>
+        <p id="ai-overview">
+            <button id="btn-primary" onclick=genAiSummary(event)>Generate a customized™ AI summary</button>
+        </p>
+    </div>
     <form method="POST">
         <button id="btn-secondary" type="submit" name="removeCoffee" onclick="confirmRemoval(event)">Remove Cup</button>
 		<button id="btn-secondary" type="submit" name="removeWildkraut" onclick="confirmRemoval(event)">Remove Wildkraut</button>
