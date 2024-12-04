@@ -57,27 +57,27 @@ jobs:
         push: true
         tags: harbor.rynkix.com/coffee-tracker/website:dev
 
-    - name: Build and push
-      uses: docker/build-push-action@v6
-      if: github.ref == 'refs/heads/main'
-      with:
-        context: .
-        file: ./Dockerfile
-        push: true
-        tags: harbor.rynkix.com/coffee-tracker/website:latest
-
     - name: Setup kubectl
+      if: github.ref == 'refs/heads/dev'
       uses: azure/setup-kubectl@v4
 
-    - name: Create/Verify `.kube` directory
-      run: mkdir -p ~/.kube/
-
-    - name: Create kubectl config
+    - name: Restart deployment
+      if: github.ref == 'refs/heads/dev'
       run: |
+        mkdir -p ~/.kube/
+
         cat << EOF >> ~/.kube/config
         ${{ secrets.KUBE_CONFIG }}
         EOF
-
-    - name: Echo deployments
-      run: |
+        
         kubectl rollout restart deployment website
+
+    - name: 📂 Sync files
+      if: github.ref == 'refs/heads/main'
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      with:
+        server: ftp.world4you.com
+        username: ${{ secrets.FTP_W4Y_USERNAME }}
+        password: ${{ secrets.FTP_W4Y_PASSWORD }}
+        server-dir: ./
+        local-dir: ./
