@@ -3,6 +3,7 @@ session_start();
 
 // Include database connection
 require_once 'db.php';
+require_once 'credentials.php'; // Used to check if $OPENAI_API_KEY is set
 
 // Redirect to login if user is not authenticated
 if (!isset($_SESSION['username'])) {
@@ -161,6 +162,25 @@ $leaderboard = $stmt->fetchAll();
                 event.preventDefault();
             }
         }
+
+        async function genAiSummary(event) {
+            event.target.innerText = "Generating...";
+            event.target.disabled = true;
+
+            let text = '';
+            const response = await fetch('/ai-summary.php');
+            if (response.ok) {
+                text = await response.text();
+            } else {
+                text = `Unexpected response: ${response}`;
+            }
+
+            const overview = document.getElementById('ai-overview');
+            const span = document.createElement('div');
+            span.innerText = text;
+            overview.appendChild(span);
+            event.target.remove();
+        }
     </script>
 </head>
 <body>
@@ -169,6 +189,12 @@ $leaderboard = $stmt->fetchAll();
     <div class="todays-count-box">
         <p>
             Today your caffeine consumption adds up to <span><?php echo $todaysCount; ?></span> Energy Level<?php echo $todaysCount !== 1 ? 's' : ''; ?>.
+        </p>
+    </div>
+    <div class="ai-box <?php if (!isset($OPENAI_API_KEY)) { echo "hidden"; } ?>">
+        <h2>✨ AI Overview ✨</h2>
+        <p id="ai-overview">
+            <button id="btn-primary" onclick=genAiSummary(event)>Generate a customized™ AI summary</button>
         </p>
     </div>
     <form method="POST">
