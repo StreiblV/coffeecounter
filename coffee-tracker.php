@@ -201,11 +201,11 @@ $leaderboard = $stmt->fetchAll();
             <button id="btn-primary" onclick=genAiSummary(event)>Generate a customized™ AI summary</button>
         </p>
     </div>
+	<hr>
     <form method="POST">
         <button id="btn-secondary" type="submit" name="removeCoffee" onclick="confirmRemoval(event)">Remove Cup</button>
 		<button id="btn-secondary" type="submit" name="removeWildkraut" onclick="confirmRemoval(event)">Remove Wildkraut</button>
 		<button id="btn-secondary" type="submit" name="removeEnergyDrink" onclick="confirmRemoval(event)">Remove Energy Drink</button>
     </form>
-    <hr>
 </body>
 </html>
