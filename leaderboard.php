@@ -69,12 +69,12 @@ $totalLeaderboard = $stmt->fetchAll();
         <div class="slider">
             <!-- Slide 1: Daily Consume -->
             <div class="slide">
-                <h2>Daily Consume</h2>
+                <h2>Today's Consume</h2>
                 <ul class="leaderboard-list">
                     <?php foreach ($dailyLeaderboard as $entry): ?>
                         <li>
                             <strong><?php echo htmlspecialchars($entry['username']); ?></strong>: 
-                            <?php echo $entry['count']; ?> cup<?php echo $entry['count'] !== 1 ? 's' : ''; ?>
+                            <?php echo $entry['count']; ?> Energy Level<?php echo $entry['count'] !== 1 ? 's' : ''; ?>
                         </li>
                     <?php endforeach; ?>
                 </ul>
@@ -87,7 +87,7 @@ $totalLeaderboard = $stmt->fetchAll();
                     <?php foreach ($averageLeaderboard as $entry): ?>
                         <li>
                             <strong><?php echo htmlspecialchars($entry['username']); ?></strong>: 
-                            <?php echo $entry['avg_daily']; ?> cup<?php echo $entry['avg_daily'] !== 1 ? 's' : ''; ?>
+                            <?php echo $entry['avg_daily']; ?> Energy Level<?php echo $entry['avg_daily'] !== 1 ? 's' : ''; ?>
                         </li>
                     <?php endforeach; ?>
                 </ul>
@@ -100,7 +100,7 @@ $totalLeaderboard = $stmt->fetchAll();
                     <?php foreach ($totalLeaderboard as $entry): ?>
                         <li>
                             <strong><?php echo htmlspecialchars($entry['username']); ?></strong>: 
-                            <?php echo $entry['total']; ?> cup<?php echo $entry['total'] !== 1 ? 's' : ''; ?>
+                            <?php echo $entry['total']; ?> Energy Level<?php echo $entry['total'] !== 1 ? 's' : ''; ?>
                         </li>
                     <?php endforeach; ?>
                 </ul>
