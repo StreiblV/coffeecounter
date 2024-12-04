@@ -37,16 +37,15 @@ jobs:
         DB_NAME: ${{ secrets.DB_DEV_NAME }}
         DB_USER: ${{ secrets.DB_DEV_USER }}
         DB_PASSWORD: ${{ secrets.DB_DEV_PASSWORD }}
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       run: |
         echo "<?php" > credentials.php
         echo "\$host = \"${DB_HOST}\";" >> credentials.php
         echo "\$dbname = \"${DB_NAME}\";" >> credentials.php
         echo "\$user = \"${DB_USER}\";" >> credentials.php
         echo "\$password = \"${DB_PASSWORD}\";" >> credentials.php
+        echo "\$OPENAI_API_KEY = \"${OPENAI_API_KEY}\";" >> credentials.php
         echo "?>" >> credentials.php
-        
-        ls -lah
-        cat credentials.php
       shell: bash
 
     - name: Build and push

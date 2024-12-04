@@ -161,6 +161,25 @@ $leaderboard = $stmt->fetchAll();
                 event.preventDefault();
             }
         }
+
+        async function genAiSummary(event) {
+            event.target.innerText = "Generating...";
+            event.target.disabled = true;
+
+            let text = '';
+            const response = await fetch('/ai-summary.php');
+            if (response.ok) {
+                text = await response.text();
+            } else {
+                text = `Unexpected response: ${response}`;
+            }
+
+            const overview = document.getElementById('ai-overview');
+            const span = document.createElement('div');
+            span.innerText = text;
+            overview.appendChild(span);
+            event.target.remove();
+        }
     </script>
 </head>
 <body>
@@ -176,11 +195,17 @@ $leaderboard = $stmt->fetchAll();
 		<button id="btn-primary" type="submit" name="addWildkraut">Add Wildkraut</button>
         <button id="btn-primary" type="submit" name="addEnergyDrink">Add Energy Drink</button>
     </form>
+	<div class="ai-box <?php if (!isset($OPENAI_API_KEY)) { echo "hidden"; } ?>">
+        <h2>✨ AI Overview ✨</h2>
+        <p id="ai-overview">
+            <button id="btn-primary" onclick=genAiSummary(event)>Generate a customized™ AI summary</button>
+        </p>
+    </div>
+	<hr>
     <form method="POST">
         <button id="btn-secondary" type="submit" name="removeCoffee" onclick="confirmRemoval(event)">Remove Cup</button>
 		<button id="btn-secondary" type="submit" name="removeWildkraut" onclick="confirmRemoval(event)">Remove Wildkraut</button>
 		<button id="btn-secondary" type="submit" name="removeEnergyDrink" onclick="confirmRemoval(event)">Remove Energy Drink</button>
     </form>
-    <hr>
 </body>
 </html>
