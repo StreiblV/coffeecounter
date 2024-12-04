@@ -3,7 +3,6 @@ session_start();
 
 // Include database connection
 require_once 'db.php';
-require_once 'credentials.php'; // Used to check if $OPENAI_API_KEY is set
 
 // Redirect to login if user is not authenticated
 if (!isset($_SESSION['username'])) {
