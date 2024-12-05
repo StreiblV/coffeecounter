@@ -40,6 +40,8 @@ if ($userId && $_SERVER['REQUEST_METHOD'] === 'POST') {
         $addtype = 'wildkraut';
     } elseif (isset($_POST['addEnergyDrink'])) {
         $addtype = 'energydrink';
+    } elseif (isset($_POST['addCoke'])) {
+        $addtype = 'coke';
     }
 
     // Add entry if a type is set
@@ -58,6 +60,8 @@ if ($userId && $_SERVER['REQUEST_METHOD'] === 'POST') {
         $removetype = 'wildkraut';
     } elseif (isset($_POST['removeEnergyDrink'])) {
         $removetype = 'energydrink';
+    } elseif (isset($_POST['removeCoke'])) {
+        $removetype = 'coke';
     }
 
     // Handle remove operation if a type is set
@@ -124,6 +128,7 @@ if ($userId && $_SERVER['REQUEST_METHOD'] === 'POST') {
 		<button id="btn-primary" type="submit" name="addCoffee">Add Cup</button>
 		<button id="btn-primary" type="submit" name="addWildkraut">Add Wildkraut</button>
         <button id="btn-primary" type="submit" name="addEnergyDrink">Add Energy Drink</button>
+		<button id="btn-primary" type="submit" name="addCoke">Add Coke</button>
     </form>
 	<div class="ai-box <?php if (!isset($OPENAI_API_KEY)) { echo "hidden"; } ?>">
         <h2>✨ AI Overview ✨</h2>
@@ -136,6 +141,7 @@ if ($userId && $_SERVER['REQUEST_METHOD'] === 'POST') {
         <button id="btn-secondary" type="submit" name="removeCoffee" onclick="confirmRemoval(event)">Remove Cup</button>
 		<button id="btn-secondary" type="submit" name="removeWildkraut" onclick="confirmRemoval(event)">Remove Wildkraut</button>
 		<button id="btn-secondary" type="submit" name="removeEnergyDrink" onclick="confirmRemoval(event)">Remove Energy Drink</button>
+		<button id="btn-secondary" type="submit" name="removeCoke" onclick="confirmRemoval(event)">Remove Coke</button>
     </form>
 </body>
 </html>

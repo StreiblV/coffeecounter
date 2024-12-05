@@ -3,39 +3,133 @@ require_once 'sessiondata.php';
 
 // Fetch Daily Consume
 $stmt = $pdo->query("
-    SELECT u.username, COUNT(e.id) AS count 
-    FROM coffee_users u
-    LEFT JOIN coffee_entries e ON u.id = e.user_id 
-    WHERE DATE(e.timestamp) = CURDATE()
-    GROUP BY u.username 
-    ORDER BY count DESC, u.username
+    SELECT 
+		u.username, 
+		SUM(
+			CASE 
+				WHEN e.type IN ('coffee', 'wildkraut', 'energydrink') THEN 3
+				WHEN e.type = 'coke' THEN 1
+				ELSE 0
+			END
+		) AS total_points
+	FROM 
+		coffee_users u
+	LEFT JOIN 
+		coffee_entries e 
+	ON 
+		u.id = e.user_id 
+	WHERE 
+		DATE(e.timestamp) = CURDATE()
+	GROUP BY 
+		u.username 
+	ORDER BY 
+		total_points DESC, u.username
 	LIMIT 10;
+
 
 ");
 $dailyLeaderboard = $stmt->fetchAll();
 
 // Fetch Average Daily Consume
 $stmt = $pdo->query("
-	SELECT u.username, 
-           ROUND(COUNT(e.id) / COUNT(DISTINCT DATE(e.timestamp)), 2) AS avg_daily 
-    FROM coffee_users u
-    LEFT JOIN coffee_entries e ON u.id = e.user_id 
-    GROUP BY u.username 
-    ORDER BY avg_daily DESC, u.username
+	SELECT 
+		u.username, 
+		ROUND(
+			SUM(
+				CASE 
+					WHEN e.type IN ('coffee', 'wildkraut', 'energydrink') THEN 3
+					WHEN e.type = 'coke' THEN 1
+					ELSE 0
+				END
+			) / COUNT(DISTINCT DATE(e.timestamp)), 2
+		) AS avg_daily
+	FROM 
+		coffee_users u
+	LEFT JOIN 
+		coffee_entries e 
+	ON 
+		u.id = e.user_id 
+	GROUP BY 
+		u.username 
+	ORDER BY 
+		avg_daily DESC, u.username
 	LIMIT 10;
 ");
 $averageLeaderboard = $stmt->fetchAll();
 
 // Fetch Total Consume
 $stmt = $pdo->query("
-    SELECT u.username, COUNT(e.id) AS total 
-    FROM coffee_users u
-    LEFT JOIN coffee_entries e ON u.id = e.user_id 
-    GROUP BY u.username 
-    ORDER BY total DESC, u.username
-	LIMIT 10;
+    SELECT 
+        u.username, 
+        SUM(
+            CASE 
+                WHEN e.type IN ('coffee', 'wildkraut', 'energydrink') THEN 3
+                WHEN e.type = 'coke' THEN 1
+                ELSE 0
+            END
+        ) AS total_points
+    FROM 
+        coffee_users u
+    LEFT JOIN 
+        coffee_entries e 
+    ON 
+        u.id = e.user_id 
+    GROUP BY 
+        u.username 
+    ORDER BY 
+        total_points DESC, u.username
+    LIMIT 10;
 ");
 $totalLeaderboard = $stmt->fetchAll();
+
+// Fetch Top Coffee Consume
+$stmt = $pdo->query("
+    SELECT u.username
+	FROM coffee_users u
+	LEFT JOIN coffee_entries e ON u.id = e.user_id
+	WHERE e.type = 'coffee' AND DATE(e.timestamp) = CURDATE()
+	GROUP BY u.username
+	ORDER BY COUNT(e.id) DESC
+	LIMIT 1;
+");
+$top_coffee = $stmt->fetchAll() ?? '/';;
+
+// Fetch Top Wildkraut Consume
+$stmt = $pdo->query("
+    SELECT u.username
+	FROM coffee_users u
+	LEFT JOIN coffee_entries e ON u.id = e.user_id
+	WHERE e.type = 'wildkraut' AND DATE(e.timestamp) = CURDATE()
+	GROUP BY u.username
+	ORDER BY COUNT(e.id) DESC
+	LIMIT 1;
+");
+$top_coffee = $stmt->fetchAll() ?? '/';;
+
+// Fetch Top Energydrink Consume
+$stmt = $pdo->query("
+    SELECT u.username
+	FROM coffee_users u
+	LEFT JOIN coffee_entries e ON u.id = e.user_id
+	WHERE e.type = 'energydrink' AND DATE(e.timestamp) = CURDATE()
+	GROUP BY u.username
+	ORDER BY COUNT(e.id) DESC
+	LIMIT 1;
+");
+$top_coffee = $stmt->fetchAll() ?? '/';;
+
+// Fetch Top Coke Consume
+$stmt = $pdo->query("
+    SELECT u.username
+	FROM coffee_users u
+	LEFT JOIN coffee_entries e ON u.id = e.user_id
+	WHERE e.type = 'coke' AND DATE(e.timestamp) = CURDATE()
+	GROUP BY u.username
+	ORDER BY COUNT(e.id) DESC
+	LIMIT 1;
+");
+$top_coffee = $stmt->fetchAll() ?? '/';;
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,7 +141,12 @@ $totalLeaderboard = $stmt->fetchAll();
     <?php include 'navbar.php'; ?>
 
     <h1>Leaderboard</h1>
+	<h3> Today's Top Coffee Consumer: <?php echo htmlspecialchars($top_coffee) ?> </h3>
+	<h3> Today's Top Wildkraut Consumer: <?php echo htmlspecialchars($top_wildkraut) ?></h3>
+	<h3> Today's Top Energydrink Consumer: <?php echo htmlspecialchars($top_energydrink) ?></h3>
+	<h3> Today's Top Coke Consumer: <?php echo htmlspecialchars($top_coke) ?></h3>
 
+	<h2>Top 10</h2>
     <!-- Slider Container -->
     <div class="slider-container">
         <div class="slider">
