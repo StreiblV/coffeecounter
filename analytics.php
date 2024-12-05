@@ -5,11 +5,23 @@ require_once 'sessiondata.php';
 $dailyHistory = [];
 if ($userId) {
     $stmt = $pdo->prepare("
-        SELECT DATE(timestamp) as date, COUNT(*) as count 
-        FROM coffee_entries 
-        WHERE user_id = :user_id 
-        GROUP BY DATE(timestamp) 
-        ORDER BY date DESC
+        SELECT 
+			DATE(timestamp) as date, 
+			SUM(
+				CASE 
+					WHEN e.type IN ('coffee', 'wildkraut', 'energydrink') THEN 3
+					WHEN e.type = 'coke' THEN 1
+					ELSE 0
+				END
+			) as total_points
+		FROM 
+			coffee_entries 
+		WHERE 
+			user_id = :user_id 
+		GROUP BY 
+			DATE(timestamp) 
+		ORDER BY 
+			date DESC;
     ");
     $stmt->execute([':user_id' => $userId]);
     $dailyHistory = $stmt->fetchAll();

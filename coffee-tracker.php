@@ -2,31 +2,30 @@
 require_once 'sessiondata.php';
 
 // Fetch coffee entries for the current day, grouped by time
-$todayData = [];
 $todaysCount = 0;
 if ($userId) {
     $stmt = $pdo->prepare("
-        SELECT DATE_FORMAT(timestamp, '%H:%i') as time, COUNT(*) as count
-        FROM coffee_entries
-        WHERE user_id = :user_id AND DATE(timestamp) = CURDATE()
-        GROUP BY time
-        ORDER BY time ASC
+        SELECT 
+			u.username, 
+			SUM(
+				CASE 
+					WHEN e.type IN ('coffee', 'wildkraut', 'energydrink') THEN 3
+					WHEN e.type = 'coke' THEN 1
+					ELSE 0
+				END
+			) AS count
+		FROM 
+			coffee_users u
+		LEFT JOIN 
+			coffee_entries e 
+		WHERE 
+			u.id = e.user_id;
     ");
     $stmt->execute([':user_id' => $userId]);
     $entries = $stmt->fetchAll();
 
-    // Prepare full timeline from 00:00 to 23:59
-    $todayData = array_fill_keys(
-        array_map(
-            fn($h) => sprintf('%02d:00', $h), // Full hour time slots
-            range(0, 23)
-        ),
-        0
-    );
-
     // Populate counts from database results and calculate today's total count
     foreach ($entries as $entry) {
-        $todayData[$entry['time']] = (int)$entry['count'];
         $todaysCount += (int)$entry['count']; // Increment today's total count
     }
 }

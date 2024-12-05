@@ -93,7 +93,7 @@ $stmt = $pdo->query("
 	LIMIT 1;
 ");
 $stmt->execute();
-$top_coffee = $stmt->fetchColumn() ?? '/';
+$top_coffee = $stmt->fetchColumn() ?? 'Nobody';
 
 // Fetch Top Wildkraut Consume
 $stmt = $pdo->query("
@@ -106,7 +106,7 @@ $stmt = $pdo->query("
 	LIMIT 1;
 ");
 $stmt->execute();
-$top_wildkraut = $stmt->fetchColumn() ?? '/';
+$top_wildkraut = $stmt->fetchColumn() ?? 'Nobody';
 
 // Fetch Top Energydrink Consume
 $stmt = $pdo->query("
@@ -119,7 +119,7 @@ $stmt = $pdo->query("
 	LIMIT 1;
 ");
 $stmt->execute();
-$top_energydrink = $stmt->fetchColumn() ?? '/';
+$top_energydrink = $stmt->fetchColumn() ?? 'Nobody';
 
 // Fetch Top Coke Consume
 $stmt = $pdo->query("
@@ -132,7 +132,7 @@ $stmt = $pdo->query("
 	LIMIT 1;
 ");
 $stmt->execute();
-$top_coke = $stmt->fetchColumn() ?? '/';
+$top_coke = $stmt->fetchColumn() ?? 'Nobody';
 
 ?>
 <!DOCTYPE html>
