@@ -86,6 +86,9 @@ jobs:
         server-dir: ./
         local-dir: ./
         exclude: |
+          **/.git*
+          **/.git*/**
+          **/node_modules/**
           credentials.php
           ./**/credentials.php
           **/credentials.php
