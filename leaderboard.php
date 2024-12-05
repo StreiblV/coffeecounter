@@ -92,7 +92,8 @@ $stmt = $pdo->query("
 	ORDER BY COUNT(e.id) DESC
 	LIMIT 1;
 ");
-$top_coffee = $stmt->fetchAll() ?? '/';;
+$stmt->execute();
+$top_coffee = $stmt->fetchColumn() ?? '/';
 
 // Fetch Top Wildkraut Consume
 $stmt = $pdo->query("
@@ -104,7 +105,8 @@ $stmt = $pdo->query("
 	ORDER BY COUNT(e.id) DESC
 	LIMIT 1;
 ");
-$top_coffee = $stmt->fetchAll() ?? '/';;
+$stmt->execute();
+$top_wildkraut = $stmt->fetchColumn() ?? '/';
 
 // Fetch Top Energydrink Consume
 $stmt = $pdo->query("
@@ -116,7 +118,8 @@ $stmt = $pdo->query("
 	ORDER BY COUNT(e.id) DESC
 	LIMIT 1;
 ");
-$top_coffee = $stmt->fetchAll() ?? '/';;
+$stmt->execute();
+$top_energydrink = $stmt->fetchColumn() ?? '/';
 
 // Fetch Top Coke Consume
 $stmt = $pdo->query("
@@ -128,7 +131,8 @@ $stmt = $pdo->query("
 	ORDER BY COUNT(e.id) DESC
 	LIMIT 1;
 ");
-$top_coffee = $stmt->fetchAll() ?? '/';;
+$stmt->execute();
+$top_coke = $stmt->fetchColumn() ?? '/';
 
 ?>
 <!DOCTYPE html>
