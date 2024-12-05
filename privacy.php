@@ -6,7 +6,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy</title>
+	<?php include 'header.php'; ?>
 </head>
 <body>
     <h1>Privacy Policy</h1>

@@ -78,5 +78,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <form method="POST" action="logout.php">
         <button id="btn-secondary" type="submit">Logout</button>
     </form>
+	<a id="btn-secondary" href="privacy.php" class="btn">Privacy</a>
 </body>
 </html>
