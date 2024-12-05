@@ -26,7 +26,6 @@ $stmt = $pdo->query("
     SELECT 
 		u.username, 
 		COUNT(e.id) AS count,
-		RANK() OVER (ORDER BY COUNT(e.id) DESC) AS rank
 	FROM 
 		coffee_users u
 	LEFT JOIN 
@@ -49,7 +48,6 @@ $stmt = $pdo->query("
 	SELECT 
 		u.username, 
 		ROUND(COUNT(e.id) / COUNT(DISTINCT DATE(e.timestamp)), 2) AS avg_daily,
-		RANK() OVER (ORDER BY ROUND(COUNT(e.id) / COUNT(DISTINCT DATE(e.timestamp)), 2) DESC) AS rank
 	FROM 
 		coffee_users u
 	LEFT JOIN 
@@ -69,7 +67,6 @@ $stmt = $pdo->query("
     SELECT 
 		u.username, 
 		COUNT(e.id) AS total,
-		RANK() OVER (ORDER BY COUNT(e.id) DESC) AS rank
 	FROM 
 		coffee_users u
 	LEFT JOIN 
