@@ -1,5 +1,5 @@
 <?php
-require_once 'sessiondata.php';
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
