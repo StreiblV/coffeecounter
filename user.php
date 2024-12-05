@@ -3,11 +3,11 @@ require_once 'sessiondata.php';
 
 // Fetch user email if logged in
 $email = '';
-/*if ($username) {
+if ($username) {
 	$stmt = $pdo->prepare("SELECT email FROM coffee_users WHERE username = :username");
     $stmt->execute([':username' => $username]);
     $email = $stmt->fetchColumn();
-}*/
+}
 
 // Handle updates
 $message = '';
