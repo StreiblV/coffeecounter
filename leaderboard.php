@@ -145,11 +145,11 @@ $top_coke = $stmt->fetchColumn() ?? '/';
     <?php include 'navbar.php'; ?>
 
     <h1>Leaderboard</h1>
-	<h2> Today's Top Coffee Consumer: </h2>
+	<h2>Today's Top Coffee Consumer</h2>
 	<p>Coffee: <b><?php echo htmlspecialchars($top_coffee) ?></b></p>
-	<h3>Wildkraut: <b><?php echo htmlspecialchars($top_wildkraut) ?></b></h3>
-	<h3>Energydrink: <b><?php echo htmlspecialchars($top_energydrink) ?></b></h3>
-	<h3>Coke: <b><?php echo htmlspecialchars($top_coke) ?></b></h3>
+	<p>Wildkraut: <b><?php echo htmlspecialchars($top_wildkraut) ?></b></p>
+	<p>Energydrink: <b><?php echo htmlspecialchars($top_energydrink) ?></b></p>
+	<p>Coke: <b><?php echo htmlspecialchars($top_coke) ?></b></p>
 
 	<h1>Top 10</h1>
     <!-- Slider Container -->
