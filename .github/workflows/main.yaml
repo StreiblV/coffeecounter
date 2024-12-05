@@ -1,0 +1,37 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches:
+      - "main"
+  workflow_dispatch: {}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Deploy to server
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      with:
+        server: ftp.world4you.com
+        username: ${{ secrets.FTP_W4Y_USERNAME }}
+        password: ${{ secrets.FTP_W4Y_PASSWORD }}
+        server-dir: ./
+        local-dir: ./
+        exclude: |
+          **/.git*
+          **/.git*/**
+          **/.ci*
+          **/.ci*/**
+          **/.idea*
+          **/.idea*/**    
+          **/.github*
+          **/.github*/**      
+          **/node_modules/**
+          credentials.php
+          ./**/credentials.php
+          **/credentials.php
