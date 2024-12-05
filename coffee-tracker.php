@@ -22,6 +22,7 @@ if ($userId) {
             u.id = e.user_id
         WHERE 
             u.id = :user_id
+			AND DATE(e.timestamp) = CURDATE()
         GROUP BY 
             u.username;
     ");
