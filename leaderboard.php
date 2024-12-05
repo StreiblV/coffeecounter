@@ -23,21 +23,12 @@ if ($username) {
 
 // Fetch Daily Consume
 $stmt = $pdo->query("
-    SELECT 
-		u.username, 
-		COUNT(e.id) AS count
-	FROM 
-		coffee_users u
-	LEFT JOIN 
-		coffee_entries e 
-	ON 
-		u.id = e.user_id
-	WHERE 
-		DATE(e.timestamp) = CURDATE()
-	GROUP BY 
-		u.username
-	ORDER BY 
-		rank ASC
+    SELECT u.username, COUNT(e.id) AS count 
+    FROM coffee_users u
+    LEFT JOIN coffee_entries e ON u.id = e.user_id 
+    WHERE DATE(e.timestamp) = CURDATE()
+    GROUP BY u.username 
+    ORDER BY count DESC, u.username
 	LIMIT 10;
 
 ");
@@ -45,38 +36,23 @@ $dailyLeaderboard = $stmt->fetchAll();
 
 // Fetch Average Daily Consume
 $stmt = $pdo->query("
-	SELECT 
-		u.username, 
-		ROUND(COUNT(e.id) / COUNT(DISTINCT DATE(e.timestamp)), 2) AS avg_daily
-	FROM 
-		coffee_users u
-	LEFT JOIN 
-		coffee_entries e 
-	ON 
-		u.id = e.user_id
-	GROUP BY 
-		u.username
-	ORDER BY 
-		rank ASC
+	SELECT u.username, 
+           ROUND(COUNT(e.id) / COUNT(DISTINCT DATE(e.timestamp)), 2) AS avg_daily 
+    FROM coffee_users u
+    LEFT JOIN coffee_entries e ON u.id = e.user_id 
+    GROUP BY u.username 
+    ORDER BY avg_daily DESC, u.username
 	LIMIT 10;
 ");
 $averageLeaderboard = $stmt->fetchAll();
 
 // Fetch Total Consume
 $stmt = $pdo->query("
-    SELECT 
-		u.username, 
-		COUNT(e.id) AS total
-	FROM 
-		coffee_users u
-	LEFT JOIN 
-		coffee_entries e 
-	ON 
-		u.id = e.user_id
-	GROUP BY 
-		u.username
-	ORDER BY 
-		rank ASC
+    SELECT u.username, COUNT(e.id) AS total 
+    FROM coffee_users u
+    LEFT JOIN coffee_entries e ON u.id = e.user_id 
+    GROUP BY u.username 
+    ORDER BY total DESC, u.username
 	LIMIT 10;
 ");
 $totalLeaderboard = $stmt->fetchAll();
