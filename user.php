@@ -15,6 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['update'])) {
         $newUsername = trim($_POST['new_username']);
         $newPassword = trim($_POST['new_password']);
+		$newEmail = trim($_POST['new_email']);
 
         if (!empty($newUsername)) {
             // Update username
@@ -31,6 +32,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = $pdo->prepare("UPDATE coffee_users SET password = :new_password WHERE id = :user_id");
             $stmt->execute([':new_password' => $hashedPassword, ':user_id' => $userId]);
             $message .= ' Password updated successfully.';
+        }
+		
+		if (!empty($newEmail)) {
+            // Update username
+            $stmt = $pdo->prepare("UPDATE coffee_users SET email = :newEmail WHERE id = :user_id");
+            $stmt->execute([':newEmail' => $newEmail, ':user_id' => $userId]);
+            $message .= 'Email updated successfully.';
         }
     }
 }
