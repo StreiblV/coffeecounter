@@ -3,7 +3,6 @@
 <title>Caffinity</title>
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/navstyle.css">
-<link rel="stylesheet" href="css/slidestyle.css">
 
 <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">

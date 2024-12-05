@@ -57,6 +57,7 @@ $totalLeaderboard = $stmt->fetchAll();
 <html lang="en">
 <head>
     <?php include 'header.php'; ?>
+    <link rel="stylesheet" href="css/slidestyle.css">
 </head>
 <body>
     <?php include 'navbar.php'; ?>
