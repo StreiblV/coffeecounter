@@ -187,7 +187,7 @@ $top_coke = $stmt->fetchColumn() ?? '/';
                     <?php foreach ($totalLeaderboard as $entry): ?>
                         <li>
                             <strong><?php echo htmlspecialchars($entry['username']); ?></strong>: 
-                            <?php echo $entry['total']; ?> Energy Level<?php echo $entry['total'] !== 1 ? 's' : ''; ?>
+                            <?php echo $entry['total_points']; ?> Energy Level<?php echo $entry['total_points'] !== 1 ? 's' : ''; ?>
                         </li>
                     <?php endforeach; ?>
                 </ul>
