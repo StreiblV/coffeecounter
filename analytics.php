@@ -46,24 +46,27 @@ if ($userId) {
 }
 // Export user's coffee data
 if ($userId && $_SERVER['REQUEST_METHOD'] === 'POST') {
-    if ($userId && isset($_POST['export'])) {
+    if (isset($_POST['export'])) {
         header('Content-Type: text/csv');
         header('Content-Disposition: attachment; filename="coffee_history.csv"');
 
         $output = fopen('php://output', 'w');
-        fputcsv($output, ['Date & Time', 'Cups Consumed']);
+        fputcsv($output, ['Date & Time', 'Energy Boost']); // Updated column name
 
+        // Updated query to fetch the type of entry
         $stmt = $pdo->prepare("
-            SELECT DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i') as datetime
+            SELECT DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i') as datetime, type
             FROM coffee_entries
             WHERE user_id = :user_id
             ORDER BY timestamp DESC
         ");
         $stmt->execute([':user_id' => $userId]);
 
-        while ($row = $stmt->fetch()) {
-            fputcsv($output, [$row['datetime'], 1]); // Each entry represents one cup
+        // Fetch rows and include type in the output
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            fputcsv($output, [$row['datetime'], $row['type']]); // Include type
         }
+
         fclose($output);
         exit;
     }
