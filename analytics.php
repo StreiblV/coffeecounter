@@ -4,27 +4,33 @@ require_once 'sessiondata.php';
 // Fetch current user's daily coffee history
 $dailyHistory = [];
 if ($userId) {
-    $stmt = $pdo->prepare("
-        SELECT 
-			DATE(timestamp) as date, 
-			SUM(
-				CASE 
-					WHEN e.type IN ('coffee', 'wildkraut', 'energydrink') THEN 3
-					WHEN e.type = 'coke' THEN 1
-					ELSE 0
-				END
-			) as total_points
-		FROM 
-			coffee_entries 
-		WHERE 
-			user_id = :user_id 
-		GROUP BY 
-			DATE(timestamp) 
-		ORDER BY 
-			date DESC;
-    ");
-    $stmt->execute([':user_id' => $userId]);
-    $dailyHistory = $stmt->fetchAll();
+    try {
+        $stmt = $pdo->prepare("
+            SELECT 
+                DATE(timestamp) as date, 
+                SUM(
+                    CASE 
+                        WHEN e.type IN ('coffee', 'wildkraut', 'energydrink') THEN 3
+                        WHEN e.type = 'coke' THEN 1
+                        ELSE 0
+                    END
+                ) as total_points
+            FROM 
+                coffee_entries 
+            WHERE 
+                user_id = :user_id 
+            GROUP BY 
+                DATE(timestamp) 
+            ORDER BY 
+                date DESC;
+        ");
+        $stmt->execute([':user_id' => $userId]);
+        $dailyHistory = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        // Handle SQL error gracefully
+        echo "Error: " . $e->getMessage();
+        $dailyHistory = [];
+    }
 }
 
 // Fetch coffee entries for the current day, grouped by time
