@@ -41,6 +41,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $message .= 'Email updated successfully.';
         }
     }
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
 }
 
 ?>
