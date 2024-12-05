@@ -14,7 +14,7 @@ if ($userId) {
                         WHEN type = 'coke' THEN 1
                         ELSE 0
                     END
-                ) as total_points
+                ) as count
             FROM 
                 coffee_entries 
             WHERE 
