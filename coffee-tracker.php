@@ -86,6 +86,8 @@ if ($userId && $_SERVER['REQUEST_METHOD'] === 'POST') {
 			':removetype' => $removetype
 		]);
 	}
+	header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
 }
 ?>
 <!DOCTYPE html>
