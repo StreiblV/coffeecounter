@@ -1,25 +1,13 @@
 <?php
-session_start();
+require_once 'sessiondata.php';
 
-// Include database connection
-require_once 'db.php';
-
-// Redirect to login if user is not authenticated
-if (!isset($_SESSION['username'])) {
-    header("Location: index.php?action=login");
-    exit;
-}
-
-// Fetch user-specific data
-$username = $_SESSION['username'];
-
-// Fetch user ID if logged in
-$userId = null;
-if ($username) {
-    $stmt = $pdo->prepare("SELECT id FROM coffee_users WHERE username = :username");
+// Fetch user email if logged in
+$email = null;
+/*if ($username) {
+	$stmt = $pdo->prepare("SELECT email FROM coffee_users WHERE username = :username");
     $stmt->execute([':username' => $username]);
-    $userId = $stmt->fetchColumn();
-}
+    $email = $stmt->fetchColumn();
+}*/
 
 // Handle updates
 $message = '';
@@ -62,13 +50,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php endif; ?>
 
     <form method="POST">
-        <h2>Update Username and Password</h2>
+        <h2>Account Settings</h2>
         <div class="form-grid">
-            <label for="new_username">New Username:</label>
+            <label for="new_username">Username:</label>
             <input type="text" id="new_username" name="new_username" value=<? echo htmlspecialchars($username); ?>>
 
-            <label for="new_password">New Password:</label>
+            <label for="new_password">Password:</label>
             <input type="password" id="new_password" name="new_password" placeholder="Enter new password">
+			
+			<label for="new_email">Email:</label>
+            <input type="password" id="new_email" name="new_email" value=<? echo htmlspecialchars($email); ?>>
 
             <button id="btn-primary" type="submit" name="update">Update</button>
         </div>

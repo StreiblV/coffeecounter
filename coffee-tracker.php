@@ -1,39 +1,5 @@
 <?php
-session_start();
-
-// Include database connection
-require_once 'db.php';
-
-// Redirect to login if user is not authenticated
-if (!isset($_SESSION['username'])) {
-    header("Location: index.php?action=login");
-    exit;
-}
-
-// Fetch user-specific data
-$username = $_SESSION['username'];
-
-// Fetch user ID if logged in
-$userId = null;
-if ($username) {
-    $stmt = $pdo->prepare("SELECT id FROM coffee_users WHERE username = :username");
-    $stmt->execute([':username' => $username]);
-    $userId = $stmt->fetchColumn();
-}
-
-// Fetch current user's daily coffee history
-$dailyHistory = [];
-if ($userId) {
-    $stmt = $pdo->prepare("
-        SELECT DATE(timestamp) as date, COUNT(*) as count 
-        FROM coffee_entries 
-        WHERE user_id = :user_id 
-        GROUP BY DATE(timestamp) 
-        ORDER BY date DESC
-    ");
-    $stmt->execute([':user_id' => $userId]);
-    $dailyHistory = $stmt->fetchAll();
-}
+require_once 'sessiondata.php';
 
 // Fetch coffee entries for the current day, grouped by time
 $todayData = [];
@@ -113,43 +79,7 @@ if ($userId && $_SERVER['REQUEST_METHOD'] === 'POST') {
 			':removetype' => $removetype
 		]);
 	}
-    
-    // Export user's coffee data
-    if ($userId && isset($_POST['export'])) {
-        header('Content-Type: text/csv');
-        header('Content-Disposition: attachment; filename="coffee_history.csv"');
-
-        $output = fopen('php://output', 'w');
-        fputcsv($output, ['Date & Time', 'Cups Consumed']);
-
-        $stmt = $pdo->prepare("
-            SELECT DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i') as datetime
-            FROM coffee_entries
-            WHERE user_id = :user_id
-            ORDER BY timestamp DESC
-        ");
-        $stmt->execute([':user_id' => $userId]);
-
-        while ($row = $stmt->fetch()) {
-            fputcsv($output, [$row['datetime'], 1]); // Each entry represents one cup
-        }
-        fclose($output);
-        exit;
-    }
-
-    header("Location: " . $_SERVER['PHP_SELF']);
-    exit;
 }
-
-// Fetch leaderboard data
-$stmt = $pdo->query("
-    SELECT u.username, COUNT(e.id) as count 
-    FROM coffee_users u
-    LEFT JOIN coffee_entries e ON u.id = e.user_id 
-    GROUP BY u.username 
-    ORDER BY count DESC, u.username
-");
-$leaderboard = $stmt->fetchAll();
 ?>
 <!DOCTYPE html>
 <html lang="en">

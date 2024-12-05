@@ -41,6 +41,7 @@ form {
     border-radius: 8px; /* More rounded corners */
     transition: background-color 0.3s ease, transform 0.2s ease;
     text-decoration: none; /* Ensures anchor-based buttons look consistent */
+	margin: 0.2em; /* Add margin around button for better visibility on mobile devices */
 }
 
 #btn-primary:hover, .btn:hover {

@@ -1,25 +1,5 @@
 <?php
-session_start();
-
-// Include database connection
-require_once 'db.php';
-
-// Redirect to login if user is not authenticated
-if (!isset($_SESSION['username'])) {
-    header("Location: index.php?action=login");
-    exit;
-}
-
-// Fetch user-specific data
-$username = $_SESSION['username'];
-
-// Fetch user ID if logged in
-$userId = null;
-if ($username) {
-    $stmt = $pdo->prepare("SELECT id FROM coffee_users WHERE username = :username");
-    $stmt->execute([':username' => $username]);
-    $userId = $stmt->fetchColumn();
-}
+require_once 'sessiondata.php';
 
 // Fetch current user's daily coffee history
 $dailyHistory = [];
@@ -64,6 +44,33 @@ if ($userId) {
         $todaysCount += (int)$entry['count']; // Increment today's total count
     }
 }
+// Export user's coffee data
+if ($userId && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    if ($userId && isset($_POST['export'])) {
+        header('Content-Type: text/csv');
+        header('Content-Disposition: attachment; filename="coffee_history.csv"');
+
+        $output = fopen('php://output', 'w');
+        fputcsv($output, ['Date & Time', 'Cups Consumed']);
+
+        $stmt = $pdo->prepare("
+            SELECT DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i') as datetime
+            FROM coffee_entries
+            WHERE user_id = :user_id
+            ORDER BY timestamp DESC
+        ");
+        $stmt->execute([':user_id' => $userId]);
+
+        while ($row = $stmt->fetch()) {
+            fputcsv($output, [$row['datetime'], 1]); // Each entry represents one cup
+        }
+        fclose($output);
+        exit;
+    }
+
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -82,5 +89,8 @@ if ($userId) {
             </li>
         <?php endforeach; ?>
     </ul>
+	<form method="POST">
+        <button id="btn-secondary" type="submit" name="export" onclick="confirmRemoval(event)">Export</button>
+	</form>
 </body>
 </html>
