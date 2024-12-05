@@ -25,7 +25,7 @@ if ($username) {
 $stmt = $pdo->query("
     SELECT 
 		u.username, 
-		COUNT(e.id) AS count,
+		COUNT(e.id) AS count
 	FROM 
 		coffee_users u
 	LEFT JOIN 
@@ -47,7 +47,7 @@ $dailyLeaderboard = $stmt->fetchAll();
 $stmt = $pdo->query("
 	SELECT 
 		u.username, 
-		ROUND(COUNT(e.id) / COUNT(DISTINCT DATE(e.timestamp)), 2) AS avg_daily,
+		ROUND(COUNT(e.id) / COUNT(DISTINCT DATE(e.timestamp)), 2) AS avg_daily
 	FROM 
 		coffee_users u
 	LEFT JOIN 
@@ -66,7 +66,7 @@ $averageLeaderboard = $stmt->fetchAll();
 $stmt = $pdo->query("
     SELECT 
 		u.username, 
-		COUNT(e.id) AS total,
+		COUNT(e.id) AS total
 	FROM 
 		coffee_users u
 	LEFT JOIN 
