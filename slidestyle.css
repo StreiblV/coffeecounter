@@ -17,9 +17,8 @@
 	min-width: 100%;
 	box-sizing: border-box;
 	text-align: center;
-	padding: 15%;
+	padding: 2% 15%;
 	background: #f5f3f0;
-	border: 1px solid #d7ccc8;
 	border-radius: 10px;
 }
 
@@ -34,6 +33,12 @@
 .leaderboard-list li {
 	margin: 10px 0;
 	font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+	.leaderboard-list li {
+		font-size: 0.8rem;
+	}
 }
 
 /* Navigation Buttons */
