@@ -48,7 +48,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: ./Dockerfile
+          file: ./.ci/Dockerfile
           push: true
           tags: harbor.rynkix.com/coffee-tracker/website:dev
 
