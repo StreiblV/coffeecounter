@@ -6,23 +6,27 @@ $todaysCount = 0;
 if ($userId) {
     $stmt = $pdo->prepare("
         SELECT 
-			u.username, 
-			SUM(
-				CASE 
-					WHEN e.type IN ('coffee', 'wildkraut', 'energydrink') THEN 3
-					WHEN e.type = 'coke' THEN 1
-					ELSE 0
-				END
-			) AS count
-		FROM 
-			coffee_users u
-		LEFT JOIN 
-			coffee_entries e 
-		WHERE 
-			u.id = e.user_id;
+            u.username, 
+            SUM(
+                CASE 
+                    WHEN e.type IN ('coffee', 'wildkraut', 'energydrink') THEN 3
+                    WHEN e.type = 'coke' THEN 1
+                    ELSE 0
+                END
+            ) AS count
+        FROM 
+            coffee_users u
+        LEFT JOIN 
+            coffee_entries e 
+        ON 
+            u.id = e.user_id
+        WHERE 
+            u.id = :user_id
+        GROUP BY 
+            u.username;
     ");
     $stmt->execute([':user_id' => $userId]);
-    $entries = $stmt->fetchAll();
+    $entries = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     // Populate counts from database results and calculate today's total count
     foreach ($entries as $entry) {
