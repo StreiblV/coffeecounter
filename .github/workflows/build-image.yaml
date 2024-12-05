@@ -85,3 +85,7 @@ jobs:
         password: ${{ secrets.FTP_W4Y_PASSWORD }}
         server-dir: ./
         local-dir: ./
+        exclude: |
+          credentials.php
+          ./**/credentials.php
+          **/credentials.php
