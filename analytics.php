@@ -10,8 +10,8 @@ if ($userId) {
                 DATE(timestamp) as date, 
                 SUM(
                     CASE 
-                        WHEN e.type IN ('coffee', 'wildkraut', 'energydrink') THEN 3
-                        WHEN e.type = 'coke' THEN 1
+                        WHEN type IN ('coffee', 'wildkraut', 'energydrink') THEN 3
+                        WHEN type = 'coke' THEN 1
                         ELSE 0
                     END
                 ) as total_points
