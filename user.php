@@ -2,7 +2,7 @@
 require_once 'sessiondata.php';
 
 // Fetch user email if logged in
-$email = null;
+$email = '';
 /*if ($username) {
 	$stmt = $pdo->prepare("SELECT email FROM coffee_users WHERE username = :username");
     $stmt->execute([':username' => $username]);
@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="password" id="new_password" name="new_password" placeholder="Enter new password">
 			
 			<label for="new_email">Email:</label>
-            <input type="password" id="new_email" name="new_email" value=<? echo htmlspecialchars($email); ?>>
+            <input type="text" id="new_email" name="new_email" value=<? echo htmlspecialchars($email); ?>>
 
             <button id="btn-primary" type="submit" name="update">Update</button>
         </div>
