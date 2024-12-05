@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <h2>Update Username and Password</h2>
         <div class="form-grid">
             <label for="new_username">New Username:</label>
-            <input type="text" id="new_username" name="new_username" placeholder="Enter new username">
+            <input type="text" id="new_username" name="new_username" value=<? echo htmlspecialchars($username); ?>>
 
             <label for="new_password">New Password:</label>
             <input type="password" id="new_password" name="new_password" placeholder="Enter new password">
