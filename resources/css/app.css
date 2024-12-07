@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    color-scheme: light;
+
+    --color-beige: #f5f3f0;
+    --color-brown-light: #795548;
+    --color-brown: #4e342e;
+    --color-dark-brown: #3e2723;
+
+    --color-background: light-dark(var(--color-beige), var(--color-brown));
+    --color-header: var(--color-dark-brown);
+    --color-text: var(--color-brown);
+
+    --color-background-primary: var(--color-brown-light);
+    --color-background-primary-hover: var(--color-brown);
+}
+
+
+@layer base {
+    h1 {
+        @apply text-6xl;
+        @apply font-bold;
+    }
+    h2 {
+        @apply text-5xl;
+        @apply font-bold;
+    }
+    h3 {
+        @apply text-4xl;
+        @apply font-bold;
+    }
+    h4 {
+        @apply text-3xl;
+    }
+    h5 {
+        @apply text-2xl;
+    }
+    h6 {
+        @apply text-xl;
+    }
+
+    .bg {
+        background-color: var(--color-background);
+    }
+
+    .bg-brown {
+        background-color: var(--color-background-primary);
+    }
+
+    .bg-brown:hover {
+        background-color: var(--color-background-primary-hover);
+    }
+
+    .ring-brown:focus {
+        @apply focus:ring;
+        @apply focus:ring-[var(--color-background-primary-hover)]
+    }
+
+    .text {
+        color: var(--color-text);
+    }
+}
+
+body {
+    background-color: var(--color-background);
+    color: var(--color-text);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--color-header);
+}
+
+.button {
+    @apply font-medium;
+    @apply rounded-lg;
+    @apply px-5;
+    @apply py-2.5;
+    @apply me-2;
+    @apply mb-2;
+    @apply focus:outline-none;
+
+    @apply text;
+    @apply bg;
+    @apply hover:bg-brown;
+    @apply hover:text-white;
+    @apply focus:ring-brown;
+}
+
+.button-primary {
+    @apply text-white;
+    @apply bg-brown;
+    @apply hover:bg-brown;
+    @apply focus:ring-brown;
+}
