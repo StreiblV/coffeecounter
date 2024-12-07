@@ -1,0 +1,19 @@
+.input-label {
+    @apply block;
+    @apply text-sm;
+    @apply font-bold;
+    @apply mb-2;
+}
+
+.input {
+    @apply shadow;
+    @apply appearance-none;
+    @apply border;
+    @apply rounded;
+    @apply py-2;
+    @apply w-full;
+    @apply px-3;
+    @apply text-gray-700;
+    @apply leading-tight;
+    @apply focus:outline-none;
+}
