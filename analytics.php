@@ -12,7 +12,7 @@ if ($userId) {
                     CASE 
                         WHEN type IN ('coffee', 'wildkraut', 'energydrink') THEN 3
                         WHEN type = 'coke' THEN 1
-                        ELSE 0
+                        ELSE 1
                     END
                 ) as count
             FROM 

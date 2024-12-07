@@ -9,7 +9,7 @@ $stmt = $pdo->query("
 			CASE 
 				WHEN e.type IN ('coffee', 'wildkraut', 'energydrink') THEN 3
 				WHEN e.type = 'coke' THEN 1
-				ELSE 0
+				ELSE 1
 			END
 		) AS total_points
 	FROM 
