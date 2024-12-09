@@ -1,15 +1,25 @@
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>{{ env("APP_NAME", "Coffee Tracker")}} </title>
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.bunny.net">
 <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 <!-- Styles / Scripts -->
 @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
-@vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/input.css', 'resources/css/alert.css'])
+@vite([
+    'resources/css/app.css', 
+    'resources/js/app.js', 
+    'resources/css/input.css', 
+    'resources/css/drawer.css',
+    'resources/css/alert.css',
+    'resources/css/card.css',
+    'resources/css/table.css',
+    'resources/css/ai.css',
+])
 @else
 <style>
     /* ! tailwindcss v3.4.1 | MIT License | https://tailwindcss.com */

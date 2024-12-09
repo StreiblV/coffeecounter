@@ -14,6 +14,7 @@
     --color-header: var(--color-dark-brown);
     --color-text: var(--color-brown);
 
+    --color-primary: var(--color-beige);
     --color-background-primary: var(--color-brown-light);
     --color-background-primary-hover: var(--color-brown);
 }
@@ -98,4 +99,8 @@ h1, h2, h3, h4, h5, h6 {
     @apply bg-brown;
     @apply hover:bg-brown;
     @apply focus:ring-brown;
+}
+
+.text-green {
+    color: green;
 }

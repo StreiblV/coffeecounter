@@ -1,0 +1,98 @@
+@media (max-width: 640px) {
+    .drawer {
+        @apply sticky;
+        @apply p-0;
+        @apply text-start;
+
+        color: var(--color-primary);
+        background-color: var(--color-background-primary);
+        max-height: 64px;
+        overflow: hidden;
+
+        transition: max-height 200ms;        
+    }
+
+    .drawer-active {
+        max-height: 500px;
+    }
+
+    .drawer-item, .drawer-button {    
+        @apply text-2xl;
+        @apply w-full;
+        @apply text-start;    
+        @apply content-center;    
+        @apply p-4;
+
+        font-family: monospace;
+        display: inline-block;
+        text-wrap: nowrap;
+        overflow: hidden;
+        margin-bottom: -8px;
+    }
+
+    .drawer-item > i, .drawer-button > i {    
+        @apply text-2xl;    
+        @apply text-center;
+        @apply content-center;
+        @apply items-center;
+
+    }
+}
+
+@media not (max-width: 640px) {
+    .drawer-layout {
+        @apply flex flex-row;
+    }
+
+    .drawer {
+        @apply h-screen sticky;
+        @apply pt-0;
+        @apply text-center;
+        @apply collapse md:visible;
+
+        flex: none;
+        
+        max-width: 60px;
+        color: var(--color-primary);
+        background-color: var(--color-background-primary);
+        transition: width 100ms;
+        transition: max-width 100ms;
+        overflow: hidden;   
+    }
+
+    .drawer-active {
+        width: 300px;
+        max-width: 300px;
+    }
+
+    .drawer-header {
+        color: var(--color-primary);    
+    }
+
+    .drawer-item, .drawer-button {    
+        @apply text-2xl;
+        @apply w-full;
+        @apply text-start;    
+        @apply content-center;
+        @apply p-4;
+        
+        font-family: monospace;
+        display: inline-block;
+        text-wrap: nowrap;
+        overflow: hidden;
+        margin-bottom: -8px;
+    }
+
+    .drawer-item > i, .drawer-button > i {    
+        @apply text-2xl;    
+        @apply pe-2;
+        
+        padding-left: 2px;
+        @apply m-0;
+    }
+} 
+
+.drawer-item:hover, .drawer-item-active {
+    background-color: var(--color-background);
+    color: var(--color-text)
+}

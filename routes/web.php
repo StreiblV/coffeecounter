@@ -13,7 +13,7 @@ Route::get('/register', function() {
 
 Route::get('/login', function() {
     return view('login');
-});
+})->name("login");
 
 Route::get('/privacy', function() {
     return view('privacy');
@@ -22,3 +22,9 @@ Route::get('/privacy', function() {
 Route::get('/', function () {
     return view('welcome');
 });
+
+# Authenticated routes
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware('auth');
