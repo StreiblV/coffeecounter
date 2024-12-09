@@ -1,0 +1,19 @@
+meta {
+  name: Post Users
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:8000/api/v1/users
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Michi",
+    "password": "1234"
+  }
+  
+}

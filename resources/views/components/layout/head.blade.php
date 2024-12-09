@@ -1,7 +1,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Laravel</title>
+<title>{{ env("APP_NAME", "Coffee Tracker")}} </title>
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.bunny.net">
@@ -9,7 +9,7 @@
 
 <!-- Styles / Scripts -->
 @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
-@vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/input.css'])
+@vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/input.css', 'resources/css/alert.css'])
 @else
 <style>
     /* ! tailwindcss v3.4.1 | MIT License | https://tailwindcss.com */

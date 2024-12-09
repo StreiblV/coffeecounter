@@ -8,6 +8,5 @@
         We just need a few more details to get started.
     </h4>
 
-
     <livewire:register />
 </x-layout.center>

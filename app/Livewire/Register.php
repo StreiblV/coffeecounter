@@ -2,18 +2,20 @@
 
 namespace App\Livewire;
 
+use App\Livewire\Forms\UserForm;
 use Livewire\Component;
 
 class Register extends Component
 {
-    public $is_forgotten = false;
+    public UserForm $form;
 
     public function render()
     {
         return view('livewire.register');
     }
 
-    public function forgot() {
-        $this->is_forgotten = true;
+    public function save() {
+        $this->form->store();
+        return $this->redirect('/login');
     }
 }
