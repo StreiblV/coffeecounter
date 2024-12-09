@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\V1\EntryController;
+use App\Models\Entry;
 use Illuminate\Support\Facades\Route;
 
 
@@ -25,6 +27,8 @@ Route::get('/', function () {
 
 # Authenticated routes
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
+Route::get('/dashboard', [EntryController::class, "render"])->middleware('auth');
+
+Route::get('/analytics', function () {
+    return view('analytics');
 })->middleware('auth');

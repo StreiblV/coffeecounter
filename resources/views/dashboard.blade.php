@@ -4,7 +4,9 @@
     <div class="card w-full">
         <div class="text-center">
             <h4 class="mb-8">Todays consumption</h4>
-            <h4 class="text-green font-bold">12</h4>
+            <h4 class="text-green font-bold">
+                {{ $energyLevels }}            
+            </h4>
             Energy Levels
         </div>
     </div>
