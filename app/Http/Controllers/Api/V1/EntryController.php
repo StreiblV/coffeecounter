@@ -12,11 +12,25 @@ use Log;
 
 class EntryController extends Controller
 {
-    public function energyLevels() {        
-        $sum = 0;
+    public function totalEnergyLevels() {
         $entries = Auth::user()
             ->entries()
             ->get();
+
+        return $this->calculateEnergyLevel($entries);
+    }
+
+    public function dailyEnergyLevels() {
+        $entries = Auth::user()
+            ->entries()
+            ->whereDate("created_at", Carbon::today())
+            ->get();
+
+        return $this->calculateEnergyLevel($entries);
+    }
+
+    public function calculateEnergyLevel(Collection $entries) {
+        $sum = 0;
 
         foreach ($entries as $entry) {
             $sum += $entry->energyLevel();
@@ -27,9 +41,13 @@ class EntryController extends Controller
 
     public function findToday(): Collection {
         return Auth::user()->entries()
-        ->whereDate("created_at", Carbon::today())
-        ->orderByDesc("created_at")
-        ->get();
+            ->whereDate("created_at", Carbon::today())
+            ->orderByDesc("created_at")
+            ->get();
+    }
+
+    public function findAll(): Collection {
+        return Auth::user()->entries()->get();
     }
 
     public function consume(string $type) {        
@@ -43,7 +61,7 @@ class EntryController extends Controller
 
     public function remove(int $id) {
         $user = Auth::user();
-        
+
         Entry::where("id", "=", $id)
             ->where("user_id", "=", $user->id)
             ->delete();
@@ -51,7 +69,7 @@ class EntryController extends Controller
 
     public function render () {
         $entries = $this->findToday();
-        $energyLevels = $this->energyLevels();
+        $energyLevels = $this->dailyEnergyLevels();
     
         return view('dashboard', ["entries" => $entries, "energyLevels" => $energyLevels]);
     }
