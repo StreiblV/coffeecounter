@@ -7,8 +7,6 @@ use Auth;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Http\Request;
-use Log;
 
 class EntryController extends Controller
 {

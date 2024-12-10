@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\EntryController;
+use App\Http\Controllers\Api\V1\LeaderboardController;
 use App\Models\Entry;
 use Illuminate\Support\Facades\Route;
 
@@ -32,3 +33,6 @@ Route::get('/dashboard', [EntryController::class, "render"])->middleware('auth')
 Route::get('/analytics', function () {
     return view('analytics');
 })->middleware('auth');
+
+
+Route::get('/leaderboard', [LeaderboardController::class, "render"])->middleware('auth');

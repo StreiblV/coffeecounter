@@ -22,7 +22,8 @@
                 <i class="bi bi-graph-up"></i> Analytics
             </a>
 
-            <a class="drawer-item" href="#">
+            <a class="drawer-item {{ request()->route()->uri == 'leaderboard' ? 'drawer-item-active' : '' }}" 
+                href="leaderboard">
                 <i class="bi bi-award"></i> Leaderboard
             </a>
 

@@ -29,6 +29,8 @@ class Entry extends Model
         switch ($this->type) {
             case 'cola':
                 return 1;
+            case 'coke':
+                return 1;
             default:
                 return 3;
         }
