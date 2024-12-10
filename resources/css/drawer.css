@@ -1,9 +1,9 @@
-@media (max-width: 640px) {
-    .drawer {
-        @apply sticky;
-        @apply p-0;
+@media (max-width: 800px) {
+    .drawer {                
         @apply text-start;
-
+        
+        position: sticky;
+        top: 0;
         color: var(--color-primary);
         background-color: var(--color-background-primary);
         max-height: 64px;
@@ -37,9 +37,13 @@
         @apply items-center;
 
     }
+
+    .drawer-content {
+        
+    }
 }
 
-@media not (max-width: 640px) {
+@media (min-width: 800px) {
     .drawer-layout {
         @apply flex flex-row;
     }
@@ -50,6 +54,8 @@
         @apply text-center;
         @apply collapse md:visible;
 
+        position: sticky;
+        top: 0;
         flex: none;
         
         max-width: 60px;

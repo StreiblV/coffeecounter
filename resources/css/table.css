@@ -7,6 +7,6 @@ td, th {
     @apply p-4;
 }
 
-tr {
+tr {    
     border-bottom: 1px solid var(--color-background-primary);
 }

@@ -19,6 +19,7 @@ class EntryFactory extends Factory
         return [
             "type" => $this->faker->randomElement(["coffee", "coke", "wildkraut", "energydrink"]),
             "user_id" => 1,
+            "created_at" => $this->faker->dateTimeThisYear(),
         ];
     }
 }

@@ -13,53 +13,32 @@
 
     <div class="card w-full">
         <h4 class="mb-8 text-center">Consume</h4>
-        <div class="text-center">
-            <button class="button">Coffee</button>
-            <button class="button">Cola</button>
-            <button class="button">Energy drink</button>
-            <button class="button">Widlkraut</button>
-        </div>        
+        <livewire:dashboard.consume></wire:dashboard.consume>
     </div>
 
     <div class="card w-full">
         <h4 class="mb-8 text-center">Todays entries</h4>
         <table class="w-full table-fixed">
             <thead>
-                <tr>
+                <tr class="hidden md:table-row">
                     <th class="text-start">
-                        Name
+                        Entry
                     </th>
                     <th class="text-start">
                         Time
                     </th>
-                    <th class="text-end">
+                    <th class="text-end hidden md:table-cell">
+                    </th>
+                </tr>
+                <tr class="table-row md:hidden">
+                    <th class="text-start">
+                        Entry
+                    </th>
+                    <th class="text-end hidden md:table-cell">
                     </th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td class="text-start">
-                        Coffee
-                    </td>
-                    <td class="text-start">
-                        10:00
-                    </td>
-                    <td class="text-end">
-                        <a class="button">Remove</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-start">
-                        Coffee
-                    </td>
-                    <td class="text-start">
-                        12:00
-                    </td>
-                    <td class="text-end">
-                        <a class="button">Remove</a>
-                    </td>
-                </tr>
-            </tbody>
+            <livewire:dashboard.entry-table :entries="$entries"/>
         </table>
     </div>
 

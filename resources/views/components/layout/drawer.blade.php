@@ -9,7 +9,7 @@
 
     <div class="drawer-layout">
         <div class="drawer" id="drawer">
-            <a class="drawer-button" href="#" onclick="toggleDrawer()">
+            <a class="drawer-button" href="#/" onclick="toggleDrawer()">
                 <i class="bi bi-list"></i>
             </a>
 
@@ -35,7 +35,7 @@
             </a>
 
         </div>
-        <div class="m-2 md:mt-2 md:ms-4 w-full">
+        <div class="m-2 md:mt-2 md:ms-4 w-full drawer-content">
             {{ $slot }}
         </div>
     </div>

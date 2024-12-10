@@ -27,7 +27,7 @@ class Entry extends Model
 
     public function energyLevel(): int {
         switch ($this->type) {
-            case 'coke':
+            case 'cola':
                 return 1;
             default:
                 return 3;
