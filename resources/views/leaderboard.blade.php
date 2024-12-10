@@ -1,5 +1,5 @@
 <x-layout.drawer>
-    <div class="flex flex-row flex-wrap w-full pe-2 md:pe-0">
+    <div class="flex flex-row flex-wrap w-full">
         <div class="w-full md:w-6/12">
             <div class="card">
                 <div class="text-center">

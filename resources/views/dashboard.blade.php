@@ -1,6 +1,6 @@
 <x-layout.drawer>
 
-<div class="flex flex-row flex-wrap w-full pe-2 md:pe-0">
+<div class="flex flex-row flex-wrap w-full">
     <div class="card w-full">
         <div class="text-center">
             <h4 class="mb-8">Todays consumption</h4>

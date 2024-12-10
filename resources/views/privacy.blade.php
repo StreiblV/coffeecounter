@@ -1,7 +1,7 @@
 <x-layout.center>
     <h1 class="mb-12">Privacy Policy</h1>
 
-    <a href="/">
+    <a href="{{ URL::previous() }}">
         <button class="button button-primary" type="button">
             Back
         </button>
@@ -36,7 +36,7 @@
     <p class="mb-12">Email: <a href="mailto:rynkixx@gmail.com">rynkixx@gmail.com</a></p>
 
 
-    <a href="/">
+    <a href="{{ URL::previous() }}">
         <button class="button button-primary" type="button">
             Back
         </button>

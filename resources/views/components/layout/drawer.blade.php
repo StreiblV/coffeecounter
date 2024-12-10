@@ -27,16 +27,18 @@
                 <i class="bi bi-award"></i> Leaderboard
             </a>
 
-            <a class="drawer-item" href="#">
+            <a class="drawer-item {{ request()->route()->uri == 'socialmedia' ? 'drawer-item-active' : '' }}" 
+                href="socialmedia">
                 <i class="bi bi-chat-right-heart"></i> Social
             </a>
 
-            <a class="drawer-item" href="#">
+            <a class="drawer-item {{ request()->route()->uri == 'preferences' ? 'drawer-item-active' : '' }}" 
+                href="preferences">
                 <i class="bi bi-gear"></i> Settings
             </a>
 
         </div>
-        <div class="m-2 md:mt-2 md:ms-4 w-full drawer-content">
+        <div class="w-full drawer-content">
             {{ $slot }}
         </div>
     </div>

@@ -1,7 +1,7 @@
 <x-layout.drawer>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <div class="flex flex-row flex-wrap w-full pe-2 md:pe-0 gap-y-2">
+    <div class="flex flex-row flex-wrap w-full">
         <div class="w-full md:w-6/12">
             <div class="card">
                 <div class="text-center">
