@@ -12,3 +12,11 @@ db:
 		-e MYSQL_PASSWORD=coffeecounter \
 		mysql:latest
 
+.PHONY: setup
+setup:
+	php artisan migrate
+	php artisan db:seed
+
+.PHONY: run
+run:
+	composer run dev
