@@ -15,43 +15,46 @@
         <livewire:dashboard.consume></livewire:dashboard.consume>
     </div>
 
-    <div class="card w-full">
-        <h4 class="mb-8 text-center">Todays entries</h4>
-        <table class="w-full table-fixed">
-            <thead>
-                <tr class="hidden md:table-row">
-                    <th class="text-start">
-                        Entry
-                    </th>
-                    <th class="text-start">
-                        Time
-                    </th>
-                    <th class="text-end hidden md:table-cell">
-                    </th>
-                </tr>
-                <tr class="table-row md:hidden">
-                    <th class="text-start">
-                        Entry
-                    </th>
-                    <th class="text-end hidden md:table-cell">
-                    </th>
-                </tr>
-            </thead>
-            <livewire:dashboard.entry-table :entries="$entries"/>
-        </table>
+    <div class="w-full lg:w-1/2">
+        <div class="card">
+            <h4 class="mb-8 text-center">Todays entries</h4>
+            <table class="w-full table-fixed">
+                <thead>
+                    <tr class="hidden md:table-row">
+                        <th>
+                            Entry
+                        </th>
+                        <th>
+                            Time
+                        </th>
+                        <th class="text-end hidden md:table-cell">
+                        </th>
+                    </tr>
+                    <tr class="table-row md:hidden">
+                        <th>
+                            Entry
+                        </th>
+                        <th class="text-end hidden md:table-cell">
+                        </th>
+                    </tr>
+                </thead>
+                <livewire:dashboard.entry-table :entries="$entries"/>
+            </table>
+        </div>
     </div>
-    <div class="{{ $aiCss }}">
-        <div class="text-center">
-            <h4 class="mb-8">✨ AI Overview ✨</h4>
-            <div id="ai-summary">
-                <button class="button button-primary" onclick="fetchSummary()">Generate Summary</button>
-                <div class="ai-box hidden" id="ai-summary-container">
-                    <div id="ai-summary-output"></>
-                </div>                 
+    <div class="w-full lg:w-1/2">
+        <div class="card">
+            <div class="text-center">
+                <h4 class="mb-8">✨ AI Overview ✨</h4>
+                <div id="ai-summary">
+                    <button class="button button-primary" onclick="fetchSummary()">Generate Summary</button>
+                    <div class="ai-box hidden" id="ai-summary-container">
+                        <div id="ai-summary-output" class="text-justify"></>
+                    </div>                 
+                </div>
             </div>
         </div>
     </div>
-
     <script>
         async function fetchSummary() {
             // Update the button state to show progress
@@ -68,14 +71,14 @@
 
                 if (data.summary) {
                     outputContainer.classList.remove("hidden");
+                    button.classList.add("hidden");
                     output.innerText = data.summary;
-                    console.log(data.summary);
                 } else {
                     output.innerText = 'Error: ' + (data.error || 'Unexpected error.');
                 }
             } catch (error) {
                 // Handle any network or unexpected errors
-                document.getElementById('summary-output').innerText = `Error: ${error.message}`;
+                document.getElementById('ai-summary-output').innerText = `Error: ${error.message}`;
             } finally {
                 // Restore the button state
                 button.innerText = "Generate Summary";

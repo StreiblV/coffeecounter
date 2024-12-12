@@ -8,7 +8,11 @@ use Illuminate\Support\Facades\Http;
 use phpDocumentor\Reflection\Types\Boolean;
 
 class AiSummaryController extends Controller
-{
+{    
+    public function __construct(
+        protected EntryController $entryController,
+    ) {}
+
     public function generateSummary(Request $request)
     {
         $debug = true;
@@ -20,10 +24,7 @@ class AiSummaryController extends Controller
             }
 
             // Dummy data for testing
-            $input = json_encode([
-                ['timestamp' => now()->toDateTimeString(), 'type' => 'coffee'],
-                ['timestamp' => now()->subMinutes(30)->toDateTimeString(), 'type' => 'wildkraut'],
-            ]);
+            $input = json_encode(value: $this->entryController->findToday());
 
             // Prepare the payload
             $payload = [
@@ -31,7 +32,7 @@ class AiSummaryController extends Controller
                 'messages' => [
                     [
                         'role' => 'system',
-                        'content' => "You're a snarky assistant evaluating caffeine intake."
+                        'content' => "You're an assistant evaluating caffeine intake. Sometimes snarky, sometimes funny, sometimes lovely, sometimes professional, you decide."
                     ],
                     [
                         'role' => 'user',
