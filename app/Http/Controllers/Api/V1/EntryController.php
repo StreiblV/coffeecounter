@@ -48,7 +48,7 @@ class EntryController extends Controller
         return Auth::user()->entries()->get();
     }
 
-    public function consume(string $type) {        
+    public function consume(string $type) {
         $user = Auth::user();
 
         Entry::create([
@@ -68,7 +68,8 @@ class EntryController extends Controller
     public function render () {
         $entries = $this->findToday();
         $energyLevels = $this->dailyEnergyLevels();
-    
-        return view('dashboard', ["entries" => $entries, "energyLevels" => $energyLevels]);
+        $aiApiKey = env("OPENAI_API_KEY");
+
+        return view('dashboard', ["entries" => $entries, "energyLevels" => $energyLevels, "aiApiKey" => $aiApiKey]);
     }
 }

@@ -2,51 +2,33 @@
 
 use App\Http\Controllers\Api\V1\EntryController;
 use App\Http\Controllers\Api\V1\LeaderboardController;
-use App\Models\Entry;
+use App\Http\Controllers\Api\V1\AiSummaryController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
+// Public routes
+Route::view('/welcome', 'welcome');
+Route::view('/register', 'register');
+Route::view('/login', 'login')->name('login');
+Route::view('/privacy', 'privacy');
 
-Route::get('/welcome', function () {
-    return view('welcome');
-});
-
-Route::get('/register', function() {
-    return view('register');
-});
-
-Route::get('/login', function() {
-    return view('login');
-})->name("login");
-
-Route::get('/logout', function() {
+// Logout route
+Route::get('/logout', function () {
     Auth::logout();
+    return redirect()->route('login');
+})->name('logout');
 
-    return redirect("login");
+// Redirect root to welcome page
+Route::redirect('/', '/welcome');
+
+// Authenticated routes
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [EntryController::class, 'render']);
+    Route::get('/ai-summary', [AiSummaryController::class, 'generateSummary']);
+    Route::view('/analytics', 'analytics');
+    Route::get('/leaderboard', [LeaderboardController::class, 'render']);
+    Route::view('/socialmedia', 'socialmedia');
+    Route::get('/preferences', function () {
+        return view('preferences', ['user' => Auth::user()]);
+    });
 });
-
-Route::get('/privacy', function() {
-    return view('privacy');
-});
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
-# Authenticated routes
-
-Route::get('/dashboard', [EntryController::class, "render"])->middleware('auth');
-
-Route::get('/analytics', function () {
-    return view('analytics');
-})->middleware('auth');
-
-Route::get('/leaderboard', [LeaderboardController::class, "render"])->middleware('auth');
-
-Route::get('/socialmedia', function () {
-    return view('socialmedia');
-})->middleware('auth');
-
-Route::get('/preferences', function () {
-    $user = Auth::user();
-    return view('preferences', ["user" => $user]);
-})->middleware('auth');

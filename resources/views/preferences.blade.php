@@ -1,12 +1,14 @@
 <x-layout.drawer>
     <div class="w-full">
         <div class="card">
-            <h4>Welcome home, {{ $user->name }}!</h4>
-            <h6 class="mt-4">Let's see what we can do for you</h6>
+            <div class="text-center">
+                <h4>Welcome home, {{ $user->name }}!</h4>
+                <h6 class="mt-4">Let's see what we can do for you</h6>
 
-            <div class="mt-4 flex flex-row">
-                <a class="button" href="logout">Logout</a>
-                <a class="button" href="privacy">Privacy Policy</a>
+                <div class="mt-4 flex-row">
+                    <a class="button" href="privacy">Privacy Policy</a>
+                    <a class="button button-primary" href="logout">Logout</a>
+                </div>
             </div>
         </div>
 
