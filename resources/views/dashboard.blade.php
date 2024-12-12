@@ -40,15 +40,14 @@
             <livewire:dashboard.entry-table :entries="$entries"/>
         </table>
     </div>
-
-    <div class="card w-full <?php if (!isset($aiApiKey)) { echo "hidden"; } ?>">
+    <div class="{{ $aiCss }}">
         <div class="text-center">
             <h4 class="mb-8">✨ AI Overview ✨</h4>
             <div id="ai-summary">
                 <button class="button button-primary" onclick="fetchSummary()">Generate Summary</button>
-                <div class="ai-box">
-                    <p id="summary-output"></p>
-                </div>
+                <div class="ai-box hidden" id="ai-summary-container">
+                    <div id="ai-summary-output"></>
+                </div>                 
             </div>
         </div>
     </div>
@@ -64,11 +63,15 @@
                 // Fetch the AI summary
                 const response = await fetch('/ai-summary');
                 const data = await response.json();
+                const outputContainer = document.getElementById('ai-summary-container');
+                const output = document.getElementById('ai-summary-output');
 
                 if (data.summary) {
-                    document.getElementById('summary-output').innerText = data.summary;
+                    outputContainer.classList.remove("hidden");
+                    output.innerText = data.summary;
+                    console.log(data.summary);
                 } else {
-                    document.getElementById('summary-output').innerText = 'Error: ' + (data.error || 'Unexpected error.');
+                    output.innerText = 'Error: ' + (data.error || 'Unexpected error.');
                 }
             } catch (error) {
                 // Handle any network or unexpected errors

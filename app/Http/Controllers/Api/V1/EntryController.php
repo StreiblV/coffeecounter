@@ -68,8 +68,8 @@ class EntryController extends Controller
     public function render () {
         $entries = $this->findToday();
         $energyLevels = $this->dailyEnergyLevels();
-        $aiApiKey = env("OPENAI_API_KEY");
+        $aiCss = strlen(env("OPENAI_API_KEY", "")) > 0 ? "card w-full" : "hidden";
 
-        return view('dashboard', ["entries" => $entries, "energyLevels" => $energyLevels, "aiApiKey" => $aiApiKey]);
+        return view('dashboard', ["entries" => $entries, "energyLevels" => $energyLevels, "aiCss" => $aiCss]);
     }
 }

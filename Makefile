@@ -13,7 +13,7 @@ db:
 		mysql:latest
 
 .PHONY: setup
-setup:
+seed:
 	php artisan migrate
 	php artisan db:seed
 
