@@ -62,78 +62,80 @@
                 <div class="text-center">
                     <h4 class="mb-8">Top Consumer</h4>
                     <!-- Table for Large Screens -->
-                    <table class="w-full table-fixed hidden sm:table">
-                        <thead>
-                        <tr>
-                            <th>Category</th>
-                            <th>Today</th>
-                            <th>Monthly</th>
-                            <th>Total</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>Coffee</td>
-                            <td>
-                                {{ $topToday['coffee']['username'] ?? 'Nobody' }}<br>
-                                {{ $topToday['coffee']['points'] ?? 0 }}
-                            </td>
-                            <td>
-                                {{ $topMonth['coffee']['username'] ?? 'Nobody' }}<br>
-                                {{ $topMonth['coffee']['points'] ?? 0 }}
-                            </td>
-                            <td>
-                                {{ $topTotal['coffee']['username'] ?? 'Nobody' }}<br>
-                                {{ $topTotal['coffee']['points'] ?? 0 }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Wildkraut</td>
-                            <td>
-                                {{ $topToday['wildkraut']['username'] ?? 'Nobody' }}<br>
-                                {{ $topToday['wildkraut']['points'] ?? 0 }}
-                            </td>
-                            <td>
-                                {{ $topMonth['wildkraut']['username'] ?? 'Nobody' }}<br>
-                                {{ $topMonth['wildkraut']['points'] ?? 0 }}
-                            </td>
-                            <td>
-                                {{ $topTotal['wildkraut']['username'] ?? 'Nobody' }}<br>
-                                {{ $topTotal['wildkraut']['points'] ?? 0 }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Energy Drink</td>
-                            <td>
-                                {{ $topToday['energydrink']['username'] ?? 'Nobody' }}<br>
-                                {{ $topToday['energydrink']['points'] ?? 0 }}
-                            </td>
-                            <td>
-                                {{ $topMonth['energydrink']['username'] ?? 'Nobody' }}<br>
-                                {{ $topMonth['energydrink']['points'] ?? 0 }}
-                            </td>
-                            <td>
-                                {{ $topTotal['energydrink']['username'] ?? 'Nobody' }}<br>
-                                {{ $topTotal['energydrink']['points'] ?? 0 }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Coke</td>
-                            <td>
-                                {{ $topToday['coke']['username'] ?? 'Nobody' }}<br>
-                                {{ $topToday['coke']['points'] ?? 0 }}
-                            </td>
-                            <td>
-                                {{ $topMonth['coke']['username'] ?? 'Nobody' }}<br>
-                                {{ $topMonth['coke']['points'] ?? 0 }}
-                            </td>
-                            <td>
-                                {{ $topTotal['coke']['username'] ?? 'Nobody' }}<br>
-                                {{ $topTotal['coke']['points'] ?? 0 }}
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    <div class="hidden md:block">
+                        <table class="w-full table-fixed">
+                            <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Today</th>
+                                <th>Monthly</th>
+                                <th>Total</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Coffee</td>
+                                <td>
+                                    {{ $topToday['coffee']['username'] ?? 'Nobody' }}<br>
+                                    {{ $topToday['coffee']['points'] ?? 0 }}
+                                </td>
+                                <td>
+                                    {{ $topMonth['coffee']['username'] ?? 'Nobody' }}<br>
+                                    {{ $topMonth['coffee']['points'] ?? 0 }}
+                                </td>
+                                <td>
+                                    {{ $topTotal['coffee']['username'] ?? 'Nobody' }}<br>
+                                    {{ $topTotal['coffee']['points'] ?? 0 }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Wildkraut</td>
+                                <td>
+                                    {{ $topToday['wildkraut']['username'] ?? 'Nobody' }}<br>
+                                    {{ $topToday['wildkraut']['points'] ?? 0 }}
+                                </td>
+                                <td>
+                                    {{ $topMonth['wildkraut']['username'] ?? 'Nobody' }}<br>
+                                    {{ $topMonth['wildkraut']['points'] ?? 0 }}
+                                </td>
+                                <td>
+                                    {{ $topTotal['wildkraut']['username'] ?? 'Nobody' }}<br>
+                                    {{ $topTotal['wildkraut']['points'] ?? 0 }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Energy Drink</td>
+                                <td>
+                                    {{ $topToday['energydrink']['username'] ?? 'Nobody' }}<br>
+                                    {{ $topToday['energydrink']['points'] ?? 0 }}
+                                </td>
+                                <td>
+                                    {{ $topMonth['energydrink']['username'] ?? 'Nobody' }}<br>
+                                    {{ $topMonth['energydrink']['points'] ?? 0 }}
+                                </td>
+                                <td>
+                                    {{ $topTotal['energydrink']['username'] ?? 'Nobody' }}<br>
+                                    {{ $topTotal['energydrink']['points'] ?? 0 }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Coke</td>
+                                <td>
+                                    {{ $topToday['coke']['username'] ?? 'Nobody' }}<br>
+                                    {{ $topToday['coke']['points'] ?? 0 }}
+                                </td>
+                                <td>
+                                    {{ $topMonth['coke']['username'] ?? 'Nobody' }}<br>
+                                    {{ $topMonth['coke']['points'] ?? 0 }}
+                                </td>
+                                <td>
+                                    {{ $topTotal['coke']['username'] ?? 'Nobody' }}<br>
+                                    {{ $topTotal['coke']['points'] ?? 0 }}
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
                     <!-- Responsive Cards for Small Screens -->
                     <div class="block sm:hidden">
@@ -144,17 +146,17 @@
                                     <tbody>
                                     <tr>
                                         <td><b>Today</b></td>
-                                        <td>{{ $topToday[$type]['username'] ?? 'Nobody' }}</td>
+                                        <td class="break-words max-w-[150px] px-2">{{ $topToday[$type]['username'] ?? 'Nobody' }}</td>
                                         <td>{{ $topToday[$type]['points'] ?? 0 }}</td>
                                     </tr>
                                     <tr>
                                         <td><b>Monthly</b></td>
-                                        <td>{{ $topMonth[$type]['username'] ?? 'Nobody' }}</td>
+                                        <td class="break-words max-w-[150px] px-2">{{ $topMonth[$type]['username'] ?? 'Nobody' }}</td>
                                         <td>{{ $topMonth[$type]['points'] ?? 0 }}</td>
                                     </tr>
                                     <tr>
                                         <td><b>Total</b></td>
-                                        <td>{{ $topTotal[$type]['username'] ?? 'Nobody' }}</td>
+                                        <td class="break-words max-w-[150px] px-2">{{ $topTotal[$type]['username'] ?? 'Nobody' }}</td>
                                         <td>{{ $topTotal[$type]['points'] ?? 0 }}</td>
                                     </tr>
                                     </tbody>
