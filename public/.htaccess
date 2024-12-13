@@ -13,9 +13,25 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_URI} (.+)/$
     RewriteRule ^ %1 [L,R=301]
+	
+	# Force HTTPS (optional, uncomment to enable)
+    RewriteCond %{HTTPS} !=on
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
     # Send Requests To Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+	
+	# Cache Control for Static Assets
+    <FilesMatch "\.(ico|jpg|jpeg|png|gif|css|js|woff|woff2|ttf|svg|eot)$">
+        Header set Cache-Control "max-age=2592000, public"
+    </FilesMatch>
+	
+	# Disable Cache for Dynamic Content
+    <FilesMatch "\.(php|html)$">
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+        Header set Pragma "no-cache"
+        Header set Expires "0"
+    </FilesMatch>
 </IfModule>
