@@ -49,8 +49,8 @@
                 <div id="ai-summary">
                     <button class="button button-primary" onclick="fetchSummary()">Generate Summary</button>
                     <div class="ai-box hidden" id="ai-summary-container">
-                        <div id="ai-summary-output" class="text-justify"></>
-                    </div>                 
+                        <div id="ai-summary-output" class="text-justify" />
+                    </div>
                 </div>
             </div>
         </div>

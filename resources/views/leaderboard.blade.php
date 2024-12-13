@@ -166,7 +166,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </x-layout.drawer>
