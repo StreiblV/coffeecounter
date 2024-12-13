@@ -22,3 +22,5 @@ yarn-error.log
 /.vscode
 /.zed
 credentials.php
+.env-prod
+sql_db_describe.txt
